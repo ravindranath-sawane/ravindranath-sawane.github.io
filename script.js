@@ -181,8 +181,15 @@ window.addEventListener('scroll', () => {
 console.log('%cWelcome to my portfolio!', 'color: #2563eb; font-size: 20px; font-weight: bold;');
 console.log('%cIf you\'re interested in the code, check out my GitHub!', 'color: #6b7280; font-size: 14px;');
 
-// Add cursor trail effect (optional, can be removed if too much)
+// Add cursor trail effect with throttling for better performance
+let lastTrailTime = 0;
+const trailThrottle = 50; // milliseconds
+
 document.addEventListener('mousemove', (e) => {
+    const now = Date.now();
+    if (now - lastTrailTime < trailThrottle) return;
+    lastTrailTime = now;
+    
     const trail = document.createElement('div');
     trail.className = 'cursor-trail';
     trail.style.cssText = `
