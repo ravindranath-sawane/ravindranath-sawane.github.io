@@ -415,39 +415,49 @@ body {
 }
 
 .skill-card h3 {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     color: var(--text-primary);
     font-size: 1.5rem;
-}
-
-.skill-card p {
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
 }
 
 .skill-tags {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
     margin-top: 1rem;
 }
 
 .tag {
-    background: rgba(0, 243, 255, 0.1);
-    color: var(--primary-color);
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.875rem;
+    background: rgba(0, 243, 255, 0.05);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
     border: 1px solid rgba(0, 243, 255, 0.2);
     transition: var(--transition);
     font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tag i {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    transition: var(--transition);
 }
 
 .skill-card:hover .tag {
-    background: var(--primary-color);
-    color: var(--bg-dark);
-    box-shadow: 0 0 10px var(--primary-color);
+    background: rgba(0, 243, 255, 0.1);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.skill-card:hover .tag i {
+    color: var(--secondary-color);
+    text-shadow: 0 0 5px var(--secondary-color);
 }
 
 /* Experience Section */
