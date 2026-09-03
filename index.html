@@ -51,6 +51,18 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <canvas id="scene-canvas" aria-label="Interactive 3D AI systems playground"></canvas>
+        <div class="world-header" aria-hidden="true">
+            <span>RAVINDRANATH / AI SYSTEMS WORLD</span>
+            <span>FIELD TEST 01</span>
+        </div>
+        <a href="#projects" class="world-sign world-sign-projects"><span>01</span><strong>PROJECTS</strong><small>AGENTIC BUILDS</small></a>
+        <a href="#experience" class="world-sign world-sign-experience"><span>02</span><strong>EXPERIENCE</strong><small>PRODUCTION SYSTEMS</small></a>
+        <a href="#skills" class="world-sign world-sign-skills"><span>03</span><strong>SKILLS</strong><small>TOOLS / PLATFORMS</small></a>
+        <div class="scene-hud" aria-hidden="true">
+            <span><i class="fas fa-gamepad"></i> DRAG TO EXPLORE</span>
+            <span><i class="fas fa-arrows-alt"></i> WASD / ARROWS TO MOVE</span>
+        </div>
         <div class="hero-content">
             <div class="hero-text">
                 <p class="hero-kicker">AI SYSTEMS / RESEARCH / ENGINEERING</p>
@@ -510,6 +522,7 @@
         </div>
     </footer>
 
+    <script type="module" src="scene.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

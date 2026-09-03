@@ -1588,12 +1588,11 @@ body::after {
 }
 
 #particles-canvas {
-    opacity: 0.14;
-    mix-blend-mode: multiply;
+    display: none;
 }
 
 .navbar {
-    background: rgba(244, 247, 243, 0.9);
+    background: #f4f7f3;
     border-bottom: 1px solid var(--border-color);
     box-shadow: 0 4px 20px rgba(20, 37, 34, 0.04);
 }
@@ -1632,13 +1631,148 @@ body::after {
     min-height: 94vh;
     padding-top: 8rem;
     align-items: center;
+    isolation: isolate;
+    background: transparent;
+}
+
+#scene-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.82;
+    cursor: grab;
+}
+
+@media (min-width: 981px) {
+    #scene-canvas {
+        left: 42%;
+        width: 58%;
+    }
+}
+
+#scene-canvas:active {
+    cursor: grabbing;
 }
 
 .hero-content {
     display: block;
-    width: 100%;
-    max-width: 1160px;
-    padding: 3rem 2rem;
+    width: 42%;
+    max-width: 42%;
+    margin-right: auto;
+    padding: 2.25rem;
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+    background: #f4f7f3;
+    border-left: 5px solid var(--secondary-color);
+    box-shadow: 14px 14px 0 rgba(20, 37, 34, 0.1);
+}
+
+.hero-content a,
+.hero-content button {
+    pointer-events: auto;
+}
+
+.scene-hud {
+    position: absolute;
+    right: 2rem;
+    bottom: 2rem;
+    z-index: 1;
+    display: flex;
+    gap: 1.25rem;
+    color: rgba(20, 37, 34, 0.62);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.04em;
+}
+
+.scene-hud i {
+    margin-right: 0.35rem;
+    color: var(--secondary-color);
+}
+
+.world-header {
+    position: absolute;
+    top: 7.5rem;
+    left: 2rem;
+    right: 2rem;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(20, 37, 34, 0.52);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+}
+
+.world-sign {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    min-width: 9.5rem;
+    padding: 0.8rem 1rem;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(20, 37, 34, 0.18);
+    border-left: 4px solid var(--secondary-color);
+    box-shadow: 6px 6px 0 rgba(20, 37, 34, 0.1);
+    text-decoration: none;
+    backdrop-filter: blur(4px);
+    transition: var(--transition);
+}
+
+.world-sign:hover,
+.world-sign:focus-visible {
+    color: var(--text-primary);
+    border-color: var(--secondary-color);
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 rgba(215, 90, 58, 0.2);
+}
+
+.world-sign span,
+.world-sign small {
+    color: var(--secondary-color);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+}
+
+.world-sign strong {
+    margin-top: 0.35rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+}
+
+.world-sign small {
+    margin-top: 0.15rem;
+    color: var(--text-secondary);
+}
+
+.world-sign-projects {
+    top: 28%;
+    right: 13%;
+}
+
+.world-sign-experience {
+    top: 49%;
+    right: 6%;
+    border-left-color: var(--primary-color);
+}
+
+.world-sign-experience span {
+    color: var(--primary-color);
+}
+
+.world-sign-skills {
+    bottom: 18%;
+    right: 23%;
+    border-left-color: var(--accent-color);
+}
+
+.world-sign-skills span {
+    color: var(--accent-color);
 }
 
 .hero-text {
@@ -1655,23 +1789,24 @@ body::after {
 }
 
 .hero-title {
-    max-width: 900px;
+    max-width: 100%;
     color: var(--text-primary);
-    font-size: 6.25rem;
+    font-size: 3rem;
     line-height: 0.95;
     letter-spacing: -0.055em;
 }
 
 .highlight {
+    display: block;
     color: var(--primary-color);
 }
 
 .hero-subtitle {
-    max-width: 760px;
+    max-width: 100%;
     margin: 2rem 0 0;
     color: var(--text-secondary);
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.05rem;
     line-height: 1.45;
 }
 
@@ -1864,13 +1999,58 @@ body::after {
         padding-top: 7rem;
     }
 
+    .scene-hud {
+        right: 1rem;
+        bottom: 1rem;
+        flex-direction: column;
+        gap: 0.4rem;
+        font-size: 0.58rem;
+    }
+
+    .world-header {
+        top: 6.5rem;
+        left: 1rem;
+        right: 1rem;
+        font-size: 0.55rem;
+    }
+
+    .world-sign {
+        min-width: 7.5rem;
+        padding: 0.55rem 0.7rem;
+    }
+
+    .world-sign strong {
+        font-size: 0.76rem;
+    }
+
+    .world-sign small {
+        font-size: 0.52rem;
+    }
+
+    .world-sign-projects {
+        top: 18%;
+        right: 5%;
+    }
+
+    .world-sign-experience {
+        top: 39%;
+        right: 3%;
+    }
+
+    .world-sign-skills {
+        bottom: 11%;
+        right: 9%;
+    }
+
     .hero-content {
         display: block;
-        padding: 2rem 1rem;
+        width: auto;
+        max-width: 42rem;
+        padding: 1.75rem 1rem;
     }
 
     .hero-title {
-        font-size: 3.25rem;
+        font-size: 2.75rem;
     }
 
     .hero-subtitle {
