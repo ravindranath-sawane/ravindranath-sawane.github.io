@@ -22,7 +22,7 @@ class Particle {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = '#00f3ff';
+        ctx.fillStyle = '#74f0d0';
         ctx.fill();
     }
 
@@ -51,7 +51,7 @@ function init() {
         let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
         let directionX = (Math.random() * 2) - 1;
         let directionY = (Math.random() * 2) - 1;
-        let color = '#00f3ff';
+        let color = '#74f0d0';
 
         particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
     }
@@ -66,7 +66,7 @@ function connect() {
                 + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
             if (distance < (canvas.width / 7) * (canvas.height / 7)) {
                 opacityValue = 1 - (distance / 20000);
-                ctx.strokeStyle = 'rgba(0, 243, 255,' + opacityValue + ')';
+                ctx.strokeStyle = 'rgba(116, 240, 208,' + opacityValue + ')';
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
@@ -244,6 +244,7 @@ window.addEventListener('scroll', () => {
 
 // Contact form handling
 const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
 
 contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -255,6 +256,8 @@ contactForm.addEventListener('submit', (e) => {
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
     submitBtn.style.opacity = '0.7';
+    formStatus.textContent = 'Sending your message...';
+    formStatus.className = 'form-status is-pending';
     
     // Get form data
     const formData = new FormData(contactForm);
@@ -268,10 +271,14 @@ contactForm.addEventListener('submit', (e) => {
     .then(data => {
         // Show success message
         alert(`Thank you for your message! I'll get back to you soon.`);
+        formStatus.textContent = 'Thanks, your message was sent successfully.';
+        formStatus.className = 'form-status is-success';
         contactForm.reset();
     })
     .catch(error => {
         console.error('Error:', error);
+        formStatus.textContent = 'Unable to send right now. Please email me directly.';
+        formStatus.className = 'form-status is-error';
         alert('Something went wrong. Please try again later or email me directly at ravisawane9@gmail.com');
     })
     .finally(() => {
@@ -301,15 +308,6 @@ window.addEventListener('load', () => {
     setTimeout(typeWriter, 500);
 });
 
-// Add parallax effect to hero section
-window.addEventListener('scroll', () => {
-    const hero = document.querySelector('.hero');
-    const scrolled = window.pageYOffset;
-    if (hero) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-    }
-});
-
 // Console message for developers
 console.log('%cWelcome to my portfolio!', 'color: #2563eb; font-size: 20px; font-weight: bold;');
 console.log('%cIf you\'re interested in the code, check out my GitHub!', 'color: #6b7280; font-size: 14px;');
@@ -330,8 +328,8 @@ document.addEventListener('mousemove', (e) => {
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        background: rgba(0, 243, 255, 0.5);
-        box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        background: rgba(116, 240, 208, 0.5);
+        box-shadow: 0 0 10px rgba(116, 240, 208, 0.5);
         pointer-events: none;
         left: ${e.clientX - 5}px;
         top: ${e.clientY - 5}px;

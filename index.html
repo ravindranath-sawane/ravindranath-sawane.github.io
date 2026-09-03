@@ -6,6 +6,9 @@
     <meta name="description" content="Ravindranath Sawane - Personal Website">
     <meta name="author" content="Ravindranath Sawane">
     <title>Ravindranath Sawane | Personal Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
@@ -30,9 +33,18 @@
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#education" class="nav-link">Education</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li class="nav-more">
+                    <details>
+                        <summary>More</summary>
+                        <ul>
+                            <li><a href="#education" class="nav-link">Education</a></li>
+                            <li><a href="#publications" class="nav-link">Research</a></li>
+                            <li><a href="#achievements" class="nav-link">Awards</a></li>
+                        </ul>
+                    </details>
+                </li>
             </ul>
         </div>
     </nav>
@@ -41,11 +53,16 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <div class="hero-text">
+                <p class="hero-kicker">AI SYSTEMS / RESEARCH / ENGINEERING</p>
                 <h1 class="hero-title">Hello, I'm <span class="highlight">Ravindranath Sawane</span></h1>
-                <p class="hero-subtitle">AI/ML Engineer | Generative AI | Supply Chain Intelligence</p>
+                <p class="hero-subtitle">AI/ML Engineer | Agentic AI Platforms | Enterprise Supply Chain Intelligence</p>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary">Get In Touch</a>
                     <a href="#projects" class="btn btn-secondary">View My Work</a>
+                </div>
+                <div class="hero-status" aria-label="Current status">
+                    <span class="status-dot"></span>
+                    <span>Currently building agentic AI systems at Kinaxis</span>
                 </div>
             </div>
         </div>
@@ -61,17 +78,13 @@
             <div class="about-content">
                 <div class="about-text">
                     <p class="lead">
-                        Results-oriented AI/ML Engineer with a Master’s in Computer Science and hands-on experience developing
-                        and deploying machine learning, deep learning, and generative AI solutions.
+                        I am an AI/ML Engineer building production-grade agentic platforms, multi-agent systems, and AI workflow automation for enterprise supply-chain products.
                     </p>
                     <p>
-                        Currently driving innovation at Kinaxis by building multi-agent systems and AI workflow automation for supply chain intelligence. 
-                        Proven track record in designing and optimizing end-to-end AI pipelines, integrating models into production environments, 
-                        and delivering scalable, data-driven solutions.
+                        At Kinaxis, I design end-to-end workflows with human approval gates, self-correction loops, secure tool use, and cloud-agnostic deployments across Azure AKS and Google GKE. My work turns natural-language requests into reliable, actionable supply-chain insights.
                     </p>
                     <p>
-                        Strong technical expertise in Python, LLM, RAG Systems, LangChain, PostgreSQL, Azure, and GCP. 
-                        Passionate about leveraging AI to solve complex real-world problems and deliver measurable business impact.
+                        My toolkit spans Python, C#, .NET, Claude Code, Microsoft Agent Framework, Vertex AI, Kubernetes, Databricks, MCP/A2A communication, RAG, OpenTelemetry, and PostgreSQL. I hold an MSc. in Computer Science with a focus on AI from Western University.
                     </p>
                     <div class="social-links">
                         <a href="https://www.linkedin.com/in/ravindranath-sawane" target="_blank" rel="noopener noreferrer" class="social-link">
@@ -92,15 +105,112 @@
         </div>
     </section>
 
+    <!-- Experience Section -->
+    <section id="experience" class="experience section">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <p class="section-intro">From agentic supply chain systems to research in intelligent transportation, I build applied AI systems that move from experiments into useful products.</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Software Developer I, AI Innovation</h3>
+                        <h4>Kinaxis Inc., Toronto, ON</h4>
+                        <p class="timeline-date"><i class="far fa-calendar"></i> Aug. 2026 – Present</p>
+                        <div class="timeline-tags"><span class="tag">Agentic Platforms</span><span class="tag">Kubernetes</span><span class="tag">Databricks</span></div>
+                        <ul class="timeline-highlights">
+                            <li>Developing a production-grade agentic AI platform for supply-chain workflows using Claude Code, Kubernetes, kagent, and Databricks/DuckDB.</li>
+                            <li>Building an end-to-end Intake → Design → Build → Review workflow with human approval gates.</li>
+                            <li>Designing cloud-agnostic deployments across kind, Azure AKS, and Google GKE environments.</li>
+                            <li>Implementing typed AI workflows, secure authentication and authorization, A2A/MCP communication, and OpenTelemetry observability.</li>
+                            <li>Improving platform quality with Grafana, automated testing, and CI gates.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Software Developer I, AI Solutions</h3>
+                        <h4>Kinaxis Inc., Toronto, ON</h4>
+                        <p class="timeline-date"><i class="far fa-calendar"></i> Apr. 2026 – Aug. 2026</p>
+                        <div class="timeline-tags"><span class="tag">MAF</span><span class="tag">NL-to-MQL</span><span class="tag">MCP</span></div>
+                        <ul class="timeline-highlights">
+                            <li>Built a multi-agent AI system with Microsoft Agent Framework for orchestration, tool calling, and agent handoffs.</li>
+                            <li>Developed an NL-to-MQL pipeline that translates natural language queries into proprietary supply-chain queries using few-shot prompting and dynamic schema injection.</li>
+                            <li>Integrated Model Context Protocol to expose enterprise server-side tools through a secure, session-scoped runtime.</li>
+                            <li>Delivered LLM evaluation suites covering agent accuracy, worksheet querying, and orchestration handoff quality.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Intern Developer, AI Solutions</h3>
+                        <h4>Kinaxis Inc., Toronto, ON</h4>
+                        <p class="timeline-date"><i class="far fa-calendar"></i> Sep. 2025 – Apr. 2026</p>
+                        <div class="timeline-tags"><span class="tag">RAG</span><span class="tag">Vertex AI</span><span class="tag">Multi-Agent Systems</span></div>
+                        <ul class="timeline-highlights">
+                            <li>Architected a production-grade Agentic Lifecycle Framework for autonomous supply-chain tasks on the Kinaxis Maestro platform.</li>
+                            <li>Engineered multi-agent architectures with Google Cloud Vertex AI and Azure AI for complex, multi-step workflows.</li>
+                            <li>Improved RAG performance through prompt engineering and workflow refinement for low-latency, context-aware responses.</li>
+                            <li>Implemented self-correction and reinforcement loops using real-time user feedback to improve agent logic and reduce hallucinations.</li>
+                            <li>Improved the natural-language-to-MQL converter to 84% accuracy using Gemini 2.5 Pro on GCP Vertex AI.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Graduate Research / Teaching Assistant</h3>
+                        <h4>Western University, London, ON</h4>
+                        <p class="timeline-date"><i class="far fa-calendar"></i> Sep. 2023 – Aug. 2025</p>
+                        <div class="timeline-tags"><span class="tag">Computer Vision</span><span class="tag">Deep Learning</span><span class="tag">Research</span></div>
+                        <ul class="timeline-highlights">
+                            <li>Conducted research on Gaze-Aware Driver Maneuver Prediction Using Object Detection and Sequential Deep Learning Models for ADAS.</li>
+                            <li>Developed state-of-the-art Model Sliding Window for LSTM, GRU, and TCN for improving lane change prediction accuracy.</li>
+                            <li>Applied YOLO-based object detection for traffic sign and traffic light recognition.</li>
+                            <li>Served as Graduate Teaching Assistant for OOP, Analysis of Algorithms, and CS Fundamentals.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Artificial Intelligence Research Assistant</h3>
+                        <h4>IGDM Lab - University of Calgary (Remote)</h4>
+                        <p class="timeline-date"><i class="far fa-calendar"></i> Jan. 2023 – July 2023</p>
+                        <div class="timeline-tags"><span class="tag">Traffic Forecasting</span><span class="tag">Graph ML</span><span class="tag">Geospatial AI</span></div>
+                        <ul class="timeline-highlights">
+                            <li>Developed an interactive tool to visualize and animate road network traffic patterns using geospatial data.</li>
+                            <li>Implemented Augmented Spatiotemporal Graph Convolutional Network for Traffic Forecasting (ASTGCN).</li>
+                            <li>Optimized logistics operations with AI-driven solutions, reducing delays and costs in parcel delivery services.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Globalink Research Intern</h3>
+                        <h4>MITACS / IGDM Lab - University of Calgary</h4>
+                        <p class="timeline-date"><i class="far fa-calendar"></i> July 2022 – Sep 2022</p>
+                        <div class="timeline-tags"><span class="tag">Time Series</span><span class="tag">Optimization</span><span class="tag">Logistics</span></div>
+                        <ul class="timeline-highlights">
+                            <li>Optimized regional logistics network for parcel delivery services, enhancing route efficiency.</li>
+                            <li>Built and evaluated time series and deep learning models (ARIMA, HA, LSTM, GRU, XGBoost) for demand, driver, and speed prediction.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Skills Section -->
     <section id="skills" class="skills section">
         <div class="container">
             <h2 class="section-title">Skills & Expertise</h2>
             <div class="skills-grid">
                 <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
+                    <div class="skill-icon"><i class="fas fa-code"></i></div>
                     <h3>Languages</h3>
                     <div class="skill-tags">
                         <span class="tag"><i class="devicon-python-plain"></i> Python</span>
@@ -110,9 +220,7 @@
                     </div>
                 </div>
                 <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
+                    <div class="skill-icon"><i class="fas fa-brain"></i></div>
                     <h3>ML/AI</h3>
                     <div class="skill-tags">
                         <span class="tag"><i class="devicon-tensorflow-original"></i> TensorFlow</span>
@@ -128,9 +236,7 @@
                     </div>
                 </div>
                 <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
+                    <div class="skill-icon"><i class="fas fa-tools"></i></div>
                     <h3>Tools & Platforms</h3>
                     <div class="skill-tags">
                         <span class="tag"><i class="devicon-kubernetes-plain"></i> Kubernetes</span>
@@ -148,76 +254,12 @@
                     </div>
                 </div>
                 <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
+                    <div class="skill-icon"><i class="fas fa-database"></i></div>
                     <h3>Databases</h3>
                     <div class="skill-tags">
                         <span class="tag"><i class="fas fa-database"></i> SQL</span>
                         <span class="tag"><i class="devicon-postgresql-plain"></i> PostgreSQL</span>
                         <span class="tag"><i class="devicon-mongodb-plain"></i> MongoDB</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="experience section">
-        <div class="container">
-            <h2 class="section-title">Experience</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>AI Solutions Developer</h3>
-                        <h4>Kinaxis Inc., Toronto, ON</h4>
-                        <p class="timeline-date"><i class="far fa-calendar"></i> Sep. 2025 – Present</p>
-                        <ul class="timeline-highlights">
-                            <li>Working on Kinaxis’ agentic framework design to automate tasks and enhance user experience via Maestro platform.</li>
-                            <li>Developing AI Worksheet Agents for getting Supply Chain Insights from Maestro.</li>
-                            <li>Building and refining multi-agent architecture with Google Cloud and Azure AI to solve complex workflows.</li>
-                            <li>Developing Agentic Systems for enhanced automation and decision-making.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Graduate Research / Teaching Assistant</h3>
-                        <h4>Western University, London, ON</h4>
-                        <p class="timeline-date"><i class="far fa-calendar"></i> Sep. 2023 – Aug. 2025</p>
-                        <ul class="timeline-highlights">
-                            <li>Conducted research on Gaze-Aware Driver Maneuver Prediction Using Object Detection and Sequential Deep Learning Models for ADAS.</li>
-                            <li>Developed state-of-the-art Model Sliding Window for LSTM, GRU, and TCN for improving lane change prediction accuracy.</li>
-                            <li>Applied YOLO-based object detection for traffic sign and traffic light recognition.</li>
-                            <li>Served as Graduate Teaching Assistant for OOP, Analysis of Algorithms, and CS Fundamentals.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Artificial Intelligence Research Assistant</h3>
-                        <h4>IGDM Lab - University of Calgary (Remote)</h4>
-                        <p class="timeline-date"><i class="far fa-calendar"></i> Jan. 2023 – July 2023</p>
-                        <ul class="timeline-highlights">
-                            <li>Developed an interactive tool to visualize and animate road network traffic patterns using geospatial data.</li>
-                            <li>Implemented Augmented Spatiotemporal Graph Convolutional Network for Traffic Forecasting (ASTGCN).</li>
-                            <li>Optimized logistics operations with AI-driven solutions, reducing delays and costs in parcel delivery services.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Globalink Research Intern</h3>
-                        <h4>MITACS / IGDM Lab - University of Calgary</h4>
-                        <p class="timeline-date"><i class="far fa-calendar"></i> July 2022 – Sep 2022</p>
-                        <ul class="timeline-highlights">
-                            <li>Optimized regional logistics network for parcel delivery services, enhancing route efficiency.</li>
-                            <li>Built and evaluated time series and deep learning models (ARIMA, HA, LSTM, GRU, XGBoost) for demand, driver, and speed prediction.</li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -446,6 +488,7 @@
                             <textarea id="message" name="message" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
+                        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
                     </form>
                 </div>
             </div>
@@ -455,7 +498,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Ravindranath Sawane. All rights reserved.</p>
+            <p>&copy; 2026 Ravindranath Sawane. All rights reserved.</p>
             <div class="footer-links">
                 <a href="https://www.linkedin.com/in/ravindranath-sawane" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-linkedin"></i>
