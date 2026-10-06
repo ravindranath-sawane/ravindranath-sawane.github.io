@@ -102,6 +102,33 @@ if (canvas) {
     world.add(ramp);
 
     const nodeColors = [0x34f4ff, 0xff4fd8, 0x9b8cff];
+    const glowCanvas = document.createElement('canvas');
+    glowCanvas.width = 128;
+    glowCanvas.height = 128;
+    const glowContext = glowCanvas.getContext('2d');
+    const glowGradient = glowContext.createRadialGradient(64, 64, 2, 64, 64, 64);
+    glowGradient.addColorStop(0, 'rgba(255,255,255,1)');
+    glowGradient.addColorStop(0.18, 'rgba(255,255,255,.76)');
+    glowGradient.addColorStop(0.48, 'rgba(255,255,255,.18)');
+    glowGradient.addColorStop(1, 'rgba(255,255,255,0)');
+    glowContext.fillStyle = glowGradient;
+    glowContext.fillRect(0, 0, 128, 128);
+    const glowTexture = new THREE.CanvasTexture(glowCanvas);
+
+    function makeGlow(color, opacity, scale) {
+        const glow = new THREE.Sprite(new THREE.SpriteMaterial({
+            map: glowTexture,
+            color,
+            transparent: true,
+            opacity,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending
+        }));
+        glow.scale.setScalar(scale);
+        glow.renderOrder = -1;
+        return glow;
+    }
+
     const nodes = [];
     const nodePositions = [
         new THREE.Vector3(-3.4, 0.55, -1.5),
@@ -114,12 +141,30 @@ if (canvas) {
     nodePositions.forEach((position, index) => {
         const node = new THREE.Mesh(
             nodeGeometry,
-            new THREE.MeshStandardMaterial({ color: nodeColors[index % nodeColors.length], roughness: 0.34, metalness: 0.2 })
+            new THREE.MeshStandardMaterial({
+                color: nodeColors[index % nodeColors.length],
+                emissive: nodeColors[index % nodeColors.length],
+                emissiveIntensity: 0.28,
+                roughness: 0.3,
+                metalness: 0.25
+            })
         );
+        const glow = makeGlow(nodeColors[index % nodeColors.length], 0.62, 3.1);
+        glow.position.y = -0.1;
+        node.add(glow);
+        node.userData.glow = glow;
         node.position.copy(position);
         node.castShadow = true;
         node.userData.baseY = position.y;
         node.userData.phase = index * 1.4;
+        const orbit = new THREE.Mesh(
+            new THREE.TorusGeometry(0.78, 0.012, 6, 48),
+            new THREE.MeshBasicMaterial({ color: nodeColors[index % nodeColors.length], transparent: true, opacity: 0.48 })
+        );
+        orbit.rotation.x = Math.PI / 2;
+        orbit.position.y = 0.12;
+        node.add(orbit);
+        node.userData.orbit = orbit;
         world.add(node);
         nodes.push(node);
     });
@@ -135,6 +180,56 @@ if (canvas) {
         return line;
     });
 
+    // A continuous route carries visible data packets between each supply node.
+    const supplyRoute = new THREE.CatmullRomCurve3(nodePositions, true, 'centripetal');
+    const routeGlow = new THREE.Mesh(
+        new THREE.TubeGeometry(supplyRoute, 160, 0.018, 5, true),
+        new THREE.MeshBasicMaterial({ color: 0x49efff, transparent: true, opacity: 0.35 })
+    );
+    world.add(routeGlow);
+
+    const dataPackets = [0x62f5ff, 0xff65dc, 0xb19aff].map((color, index) => {
+        const packet = new THREE.Mesh(
+            new THREE.IcosahedronGeometry(0.12, 1),
+            new THREE.MeshBasicMaterial({ color })
+        );
+        const glow = makeGlow(color, 0.9, 1.25);
+        packet.add(glow);
+        const halo = new THREE.Mesh(
+            new THREE.TorusGeometry(0.2, 0.012, 5, 24),
+            new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.8 })
+        );
+        halo.rotation.x = Math.PI / 2;
+        packet.add(halo);
+
+        const trailGeometry = new THREE.BufferGeometry();
+        const trailPositions = new Float32Array(18 * 3);
+        trailGeometry.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3).setUsage(THREE.DynamicDrawUsage));
+        const trail = new THREE.Line(
+            trailGeometry,
+            new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.52 })
+        );
+        world.add(packet, trail);
+        return { packet, trail, phase: index / 3, glow };
+    });
+
+    const sparkGeometry = new THREE.BufferGeometry();
+    const sparkPositions = new Float32Array(180 * 3);
+    for (let index = 0; index < 180; index += 1) {
+        const angle = index * 2.399;
+        const radius = 1.8 + ((index * 17) % 100) / 55;
+        sparkPositions[index * 3] = Math.cos(angle) * radius;
+        sparkPositions[index * 3 + 1] = ((index * 29) % 100) / 35 - 1.2;
+        sparkPositions[index * 3 + 2] = Math.sin(angle) * radius;
+    }
+    sparkGeometry.setAttribute('position', new THREE.BufferAttribute(sparkPositions, 3));
+    const sparkField = new THREE.Points(
+        sparkGeometry,
+        new THREE.PointsMaterial({ color: 0x75dfff, size: 0.035, transparent: true, opacity: 0.58, sizeAttenuation: true })
+    );
+    sparkField.position.y = 0.9;
+    world.add(sparkField);
+
     const core = new THREE.Group();
     core.position.set(0, 0.9, 0);
     const coreMesh = new THREE.Mesh(
@@ -142,6 +237,7 @@ if (canvas) {
         new THREE.MeshStandardMaterial({ color: 0x14213a, emissive: 0x17245a, emissiveIntensity: 0.48, roughness: 0.2, metalness: 0.55, flatShading: true })
     );
     coreMesh.castShadow = true;
+    core.add(makeGlow(0x5e8dff, 0.66, 5.2));
     core.add(coreMesh);
 
     const coreRing = new THREE.Mesh(
@@ -202,6 +298,11 @@ if (canvas) {
         if (document.activeElement === canvas && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(event.key.toLowerCase())) {
             event.preventDefault();
             keys.add(event.key.toLowerCase());
+            if (reducedMotion) {
+                moveAgent();
+                renderer.render(scene, camera);
+                keys.delete(event.key.toLowerCase());
+            }
         }
     });
 
@@ -211,8 +312,18 @@ if (canvas) {
         const bounds = canvas.getBoundingClientRect();
         pointerX = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
         pointerY = ((event.clientY - bounds.top) / bounds.height) * 2 - 1;
-        targetRotationY = pointerX * 0.08;
-        targetRotationX = pointerY * 0.035;
+        targetRotationY = pointerX * 0.2;
+        targetRotationX = pointerY * 0.09;
+        if (reducedMotion) {
+            world.rotation.y = targetRotationY;
+            world.rotation.x = targetRotationX;
+            renderer.render(scene, camera);
+        }
+    });
+
+    canvas.addEventListener('pointerleave', () => {
+        targetRotationX = 0;
+        targetRotationY = 0;
     });
 
     function resize() {
@@ -233,6 +344,26 @@ if (canvas) {
         }
     }
 
+    const trailPoint = new THREE.Vector3();
+    function updateDataPackets(elapsed) {
+        dataPackets.forEach(({ packet, trail, phase, glow }) => {
+            const progress = (elapsed * 0.075 + phase) % 1;
+            supplyRoute.getPointAt(progress, packet.position);
+            packet.rotation.y = elapsed * 1.7;
+            glow.scale.setScalar(1.2 + Math.sin(elapsed * 4 + phase * 8) * 0.12);
+            const positions = trail.geometry.attributes.position.array;
+            for (let point = 0; point < 18; point += 1) {
+                const trailProgress = (progress - point * 0.0045 + 1) % 1;
+                supplyRoute.getPointAt(trailProgress, trailPoint);
+                positions[point * 3] = trailPoint.x;
+                positions[point * 3 + 1] = trailPoint.y;
+                positions[point * 3 + 2] = trailPoint.z;
+            }
+            trail.geometry.attributes.position.needsUpdate = true;
+            trail.geometry.computeBoundingSphere();
+        });
+    }
+
     const clock = new THREE.Clock();
     let sceneInView = true;
     let animationFrameId = null;
@@ -241,6 +372,7 @@ if (canvas) {
         animationFrameId = null;
         if (document.hidden || !sceneInView) return;
         const elapsed = clock.getElapsedTime();
+        updateDataPackets(elapsed);
         if (reducedMotion) {
             renderer.render(scene, camera);
             return;
@@ -255,10 +387,16 @@ if (canvas) {
             node.rotation.x = elapsed * 0.35 + node.userData.phase;
             node.rotation.y = elapsed * 0.55 + node.userData.phase;
             node.position.y = node.userData.baseY + Math.sin(elapsed * 1.4 + node.userData.phase) * 0.12;
+            node.userData.orbit.rotation.z = -elapsed * 0.7 - node.userData.phase;
+            node.userData.orbit.scale.setScalar(1 + Math.sin(elapsed * 2 + node.userData.phase) * 0.08);
+            node.material.emissiveIntensity = 0.22 + (Math.sin(elapsed * 2.2 + node.userData.phase) + 1) * 0.12;
+            node.userData.glow.scale.setScalar(3.1 + Math.sin(elapsed * 1.7 + node.userData.phase) * 0.22);
         });
         connections.forEach((line, index) => {
             line.material.opacity = 0.58 + Math.sin(elapsed * 1.2 + index) * 0.12;
         });
+        sparkField.rotation.y = elapsed * 0.035;
+        sparkField.rotation.x = Math.sin(elapsed * 0.12) * 0.035;
         renderer.render(scene, camera);
     }
 
