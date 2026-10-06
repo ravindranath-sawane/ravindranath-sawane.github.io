@@ -1,528 +1,177 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ravindranath Sawane - Personal Website">
-    <meta name="author" content="Ravindranath Sawane">
-    <title>Ravindranath Sawane | Personal Website</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1eee6">
+  <meta name="description" content="Ravindranath Sawane builds useful AI systems, developer tools, and applied machine learning. Toronto, Canada.">
+  <meta name="author" content="Ravindranath Sawane">
+  <title>Ravindranath Sawane — Useful intelligence, engineered.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Particle Background -->
-    <canvas id="particles-canvas"></canvas>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="read-progress" aria-hidden="true"><span id="readProgress"></span></div>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <a href="#home">Ravindranath Sawane</a>
-            </div>
-            <button class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-                <li class="nav-more">
-                    <details>
-                        <summary>More</summary>
-                        <ul>
-                            <li><a href="#education" class="nav-link">Education</a></li>
-                            <li><a href="#publications" class="nav-link">Research</a></li>
-                            <li><a href="#achievements" class="nav-link">Awards</a></li>
-                        </ul>
-                    </details>
-                </li>
-            </ul>
-        </div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Ravindranath Sawane, home"><span class="brand-mark">rs<span>↗</span></span><span class="brand-name">Ravindranath<br>Sawane</span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#work">Work <sup>04</sup></a>
+      <a href="#experience">Experience</a>
+      <a href="#about">About</a>
     </nav>
+    <a class="header-contact" href="mailto:ravisawane9@gmail.com">Let’s talk <span>↗</span></a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Open navigation"><span></span><span></span></button>
+  </header>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" hidden>
+    <a href="#work">Selected work <span>01—04</span></a><a href="#experience">Current experience <span>NOW</span></a><a href="#about">About <span>04</span></a><a href="mailto:ravisawane9@gmail.com">Say hello <span>↗</span></a>
+  </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <canvas id="scene-canvas" aria-label="Interactive 3D AI systems playground"></canvas>
-        <div class="world-header" aria-hidden="true">
-            <span>RAVINDRANATH / AI SYSTEMS WORLD</span>
-            <span>FIELD TEST 01</span>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="heroTitle">
+      <div class="hero-meta mono"><span><i class="live-dot"></i> TORONTO, CANADA</span><span>43° 39′ N &nbsp; / &nbsp; 79° 23′ W</span></div>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-rule"></span> AI ENGINEER &nbsp;·&nbsp; SYSTEMS THINKER</p>
+          <h1 id="heroTitle">I build AI for<br>the <em>messy middle.</em></h1>
+          <p class="hero-deck">When a good idea meets real work—tools, context, handoffs, edge cases—I build the system that gets it through.</p>
+          <div class="hero-actions"><a class="button button-dark" href="#work">See what I’ve built <span>↓</span></a><a class="text-link" href="#about">A little about me <span>↗</span></a></div>
         </div>
-        <a href="#projects" class="world-sign world-sign-projects"><span>01</span><strong>PROJECTS</strong><small>AGENTIC BUILDS</small></a>
-        <a href="#experience" class="world-sign world-sign-experience"><span>02</span><strong>EXPERIENCE</strong><small>PRODUCTION SYSTEMS</small></a>
-        <a href="#skills" class="world-sign world-sign-skills"><span>03</span><strong>SKILLS</strong><small>TOOLS / PLATFORMS</small></a>
-        <div class="scene-hud" aria-hidden="true">
-            <span><i class="fas fa-gamepad"></i> DRAG TO EXPLORE</span>
-            <span><i class="fas fa-arrows-alt"></i> WASD / ARROWS TO MOVE</span>
-        </div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <p class="hero-kicker">AI SYSTEMS / RESEARCH / ENGINEERING</p>
-                <h1 class="hero-title">Hello, I'm <span class="highlight">Ravindranath Sawane</span></h1>
-                <p class="hero-subtitle">AI/ML Engineer | Agentic AI Platforms | Enterprise Supply Chain Intelligence</p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                    <a href="#projects" class="btn btn-secondary">View My Work</a>
-                </div>
-                <div class="hero-status" aria-label="Current status">
-                    <span class="status-dot"></span>
-                    <span>Currently building agentic AI systems at Kinaxis</span>
-                </div>
+        <div class="hero-art" id="heroArt" role="img" aria-label="A working diagram of an AI engineering workflow">
+          <div class="art-topline mono"><span>FIELD STUDY&nbsp; 001</span><span>FROM INTENT TO SOFTWARE</span></div>
+          <div class="workflow-shell">
+            <div class="workflow-track" aria-hidden="true"><svg viewBox="0 0 640 220" preserveAspectRatio="none"><path class="workflow-path" d="M75 114 H227 C260 114 260 70 294 70 H410 C446 70 446 155 482 155 H572"/><path class="workflow-path workflow-path--fine" d="M75 122 H224 C254 122 255 78 294 78 H408 C438 78 440 163 482 163 H572"/><circle class="workflow-runner" r="5"><animateMotion dur="5.8s" repeatCount="indefinite" path="M75 114 H227 C260 114 260 70 294 70 H410 C446 70 446 155 482 155 H572"/></circle></svg></div>
+              <div class="workflow-nodes">
+                <div class="workflow-node workflow-node--request"><span class="node-number mono">01 / INPUT</span><div class="node-glyph glyph-prompt"><i></i><i></i><i></i></div><strong>Intent</strong><small>human request</small></div>
+                <div class="workflow-node workflow-node--agent"><span class="node-number mono">02 / REASON</span><div class="node-glyph glyph-agent"><i>↗</i><i>↘</i><i>·</i></div><strong>Agent loop</strong><small>plan · act · check</small></div>
+                <div class="workflow-node workflow-node--tools"><span class="node-number mono">03 / USE</span><div class="node-glyph glyph-tool"><i></i><b>+</b><i></i></div><strong>Real tools</strong><small>context · action</small></div>
+                <div class="workflow-node workflow-node--result"><span class="node-number mono">04 / VERIFY</span><div class="node-glyph glyph-result"><i>✓</i></div><strong>Useful change</strong><small>reviewable output</small></div>
+              </div>
+              <div class="workflow-human"><span class="human-symbol">↳</span><span>HUMAN CHECKPOINT</span><i></i></div>
             </div>
+          </div>
+          <div class="art-bottomline mono"><span>THE PROMPT IS THE STARTING POINT.</span><span>NOT THE PRODUCT.</span></div>
+          <span class="art-index mono">FIG. 01</span>
         </div>
-        <div class="scroll-indicator">
-            <a href="#about"><i class="fas fa-chevron-down"></i></a>
-        </div>
+      </div>
+      <div class="hero-foot mono"><span>ENGINEERING / APPLIED AI / RESEARCH</span><a href="#work">SCROLL TO EXPLORE <b>↓</b></a><span>OPEN TO GOOD PROBLEMS</span></div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about section">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p class="lead">
-                        I am an AI/ML Engineer building production-grade agentic platforms, multi-agent systems, and AI workflow automation for enterprise supply-chain products.
-                    </p>
-                    <p>
-                        At Kinaxis, I design end-to-end workflows with human approval gates, self-correction loops, secure tool use, and cloud-agnostic deployments across Azure AKS and Google GKE. My work turns natural-language requests into reliable, actionable supply-chain insights.
-                    </p>
-                    <p>
-                        My toolkit spans Python, C#, .NET, Claude Code, Microsoft Agent Framework, Vertex AI, Kubernetes, Databricks, MCP/A2A communication, RAG, OpenTelemetry, and PostgreSQL. I hold an MSc. in Computer Science with a focus on AI from Western University.
-                    </p>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/ravindranath-sawane" target="_blank" rel="noopener noreferrer" class="social-link">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer" class="social-link">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="mailto:ravisawane9@gmail.com" class="social-link">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                        <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="social-link" title="Google Scholar">
-                            <i class="fas fa-graduation-cap"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <section class="experience-section" id="experience" aria-labelledby="experienceTitle">
+      <div class="experience-kicker mono"><span><b>00</b> &nbsp; CURRENT CHAPTER</span><span>WHERE I’M BUILDING NOW <i></i></span></div>
+      <div class="experience-grid">
+        <div class="experience-identity">
+          <p class="eyebrow"><span class="eyebrow-rule"></span> KINAXIS &nbsp;·&nbsp; TORONTO</p>
+          <h2 id="experienceTitle">Software Developer I,<br><em>AI Innovation</em></h2>
+          <p class="experience-date mono">AUG 2026 — PRESENT</p>
         </div>
+        <div class="experience-story">
+          <p class="experience-lead">Building the platform behind agentic AI for supply-chain work.</p>
+          <p class="experience-body">I’m developing a production-grade system that takes a task through <strong>Intake → Design → Build → Review</strong>, with human approval gates built into the workflow. The work spans cloud-ready deployment, secure tool use, and observability.</p>
+          <div class="experience-flow" aria-label="Workflow stages: Intake, Design, Build, Review with a human approval checkpoint">
+            <div><span class="mono">01</span><b>Intake</b></div><i>→</i><div><span class="mono">02</span><b>Design</b></div><i>→</i><div><span class="mono">03</span><b>Build</b></div><i>→</i><div class="review-step"><span class="mono">04</span><b>Review</b></div>
+          </div>
+          <div class="experience-signals"><span>KUBERNETES / AZURE AKS / GOOGLE GKE</span><span>DATABRICKS / A2A + MCP / OPENTELEMETRY</span></div>
+        </div>
+      </div>
+      <div class="experience-margin mono"><span>SOFTWARE DEVELOPER I</span><span>BUILDING AI THAT CAN BE REVIEWED</span><a href="#history">EARLIER ROLES ↓</a></div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="experience section">
-        <div class="container">
-            <h2 class="section-title">Experience</h2>
-            <p class="section-intro">From agentic supply chain systems to research in intelligent transportation, I build applied AI systems that move from experiments into useful products.</p>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Software Developer I, AI Innovation</h3>
-                        <h4>Kinaxis Inc., Toronto, ON</h4>
-                        <p class="timeline-date"><i class="far fa-calendar"></i> Aug. 2026 – Present</p>
-                        <div class="timeline-tags"><span class="tag">Agentic Platforms</span><span class="tag">Kubernetes</span><span class="tag">Databricks</span></div>
-                        <ul class="timeline-highlights">
-                            <li>Developing a production-grade agentic AI platform for supply-chain workflows using Claude Code, Kubernetes, kagent, and Databricks/DuckDB.</li>
-                            <li>Building an end-to-end Intake → Design → Build → Review workflow with human approval gates.</li>
-                            <li>Designing cloud-agnostic deployments across kind, Azure AKS, and Google GKE environments.</li>
-                            <li>Implementing typed AI workflows, secure authentication and authorization, A2A/MCP communication, and OpenTelemetry observability.</li>
-                            <li>Improving platform quality with Grafana, automated testing, and CI gates.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Software Developer I, AI Solutions</h3>
-                        <h4>Kinaxis Inc., Toronto, ON</h4>
-                        <p class="timeline-date"><i class="far fa-calendar"></i> Apr. 2026 – Aug. 2026</p>
-                        <div class="timeline-tags"><span class="tag">MAF</span><span class="tag">NL-to-MQL</span><span class="tag">MCP</span></div>
-                        <ul class="timeline-highlights">
-                            <li>Built a multi-agent AI system with Microsoft Agent Framework for orchestration, tool calling, and agent handoffs.</li>
-                            <li>Developed an NL-to-MQL pipeline that translates natural language queries into proprietary supply-chain queries using few-shot prompting and dynamic schema injection.</li>
-                            <li>Integrated Model Context Protocol to expose enterprise server-side tools through a secure, session-scoped runtime.</li>
-                            <li>Delivered LLM evaluation suites covering agent accuracy, worksheet querying, and orchestration handoff quality.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Intern Developer, AI Solutions</h3>
-                        <h4>Kinaxis Inc., Toronto, ON</h4>
-                        <p class="timeline-date"><i class="far fa-calendar"></i> Sep. 2025 – Apr. 2026</p>
-                        <div class="timeline-tags"><span class="tag">RAG</span><span class="tag">Vertex AI</span><span class="tag">Multi-Agent Systems</span></div>
-                        <ul class="timeline-highlights">
-                            <li>Architected a production-grade Agentic Lifecycle Framework for autonomous supply-chain tasks on the Kinaxis Maestro platform.</li>
-                            <li>Engineered multi-agent architectures with Google Cloud Vertex AI and Azure AI for complex, multi-step workflows.</li>
-                            <li>Improved RAG performance through prompt engineering and workflow refinement for low-latency, context-aware responses.</li>
-                            <li>Implemented self-correction and reinforcement loops using real-time user feedback to improve agent logic and reduce hallucinations.</li>
-                            <li>Improved the natural-language-to-MQL converter to 84% accuracy using Gemini 2.5 Pro on GCP Vertex AI.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Graduate Research / Teaching Assistant</h3>
-                        <h4>Western University, London, ON</h4>
-                        <p class="timeline-date"><i class="far fa-calendar"></i> Sep. 2023 – Aug. 2025</p>
-                        <div class="timeline-tags"><span class="tag">Computer Vision</span><span class="tag">Deep Learning</span><span class="tag">Research</span></div>
-                        <ul class="timeline-highlights">
-                            <li>Conducted research on Gaze-Aware Driver Maneuver Prediction Using Object Detection and Sequential Deep Learning Models for ADAS.</li>
-                            <li>Developed state-of-the-art Model Sliding Window for LSTM, GRU, and TCN for improving lane change prediction accuracy.</li>
-                            <li>Applied YOLO-based object detection for traffic sign and traffic light recognition.</li>
-                            <li>Served as Graduate Teaching Assistant for OOP, Analysis of Algorithms, and CS Fundamentals.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Artificial Intelligence Research Assistant</h3>
-                        <h4>IGDM Lab - University of Calgary (Remote)</h4>
-                        <p class="timeline-date"><i class="far fa-calendar"></i> Jan. 2023 – July 2023</p>
-                        <div class="timeline-tags"><span class="tag">Traffic Forecasting</span><span class="tag">Graph ML</span><span class="tag">Geospatial AI</span></div>
-                        <ul class="timeline-highlights">
-                            <li>Developed an interactive tool to visualize and animate road network traffic patterns using geospatial data.</li>
-                            <li>Implemented Augmented Spatiotemporal Graph Convolutional Network for Traffic Forecasting (ASTGCN).</li>
-                            <li>Optimized logistics operations with AI-driven solutions, reducing delays and costs in parcel delivery services.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Globalink Research Intern</h3>
-                        <h4>MITACS / IGDM Lab - University of Calgary</h4>
-                        <p class="timeline-date"><i class="far fa-calendar"></i> July 2022 – Sep 2022</p>
-                        <div class="timeline-tags"><span class="tag">Time Series</span><span class="tag">Optimization</span><span class="tag">Logistics</span></div>
-                        <ul class="timeline-highlights">
-                            <li>Optimized regional logistics network for parcel delivery services, enhancing route efficiency.</li>
-                            <li>Built and evaluated time series and deep learning models (ARIMA, HA, LSTM, GRU, XGBoost) for demand, driver, and speed prediction.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="history-section" id="history" aria-labelledby="historyTitle">
+      <div class="history-heading">
+        <div class="history-title"><p class="eyebrow"><span class="section-index">01</span> EXPERIENCE / 2022—NOW</p><h2 id="historyTitle">From research<br>to <em>production.</em></h2><p class="history-intro">A continuous thread: make intelligent systems useful outside the lab.</p></div>
+        <div class="experience-total"><strong>~4</strong><div><span>YEARS COMBINED</span><b>AI · SOFTWARE · RESEARCH</b><small>Includes internships and academic research appointments.</small></div></div>
+      </div>
+      <div class="history-entries" aria-label="Earlier experience">
+        <article class="history-entry"><p class="history-date mono">APR 2026<br>— AUG 2026</p><div class="history-role"><h3>Software Developer I, AI Solutions</h3><p>Kinaxis <span>·</span> Toronto, ON</p></div><p class="history-outcome">Built multi-agent orchestration, secure MCP tools, and an NL-to-MQL workflow for supply-chain queries.</p><span class="history-index mono">01</span></article>
+        <article class="history-entry"><p class="history-date mono">SEP 2025<br>— APR 2026</p><div class="history-role"><h3>Intern Developer, AI Solutions</h3><p>Kinaxis <span>·</span> Toronto, ON</p></div><p class="history-outcome">Improved natural-language-to-MQL accuracy to <b>84%</b> with Gemini 2.5 Pro; built agentic workflows for Kinaxis Maestro.</p><span class="history-index mono">02</span></article>
+        <article class="history-entry"><p class="history-date mono">SEP 2023<br>— AUG 2025</p><div class="history-role"><h3>Graduate Research &amp; Teaching Assistant</h3><p>Western University <span>·</span> London, ON</p></div><p class="history-outcome">Researched gaze-aware lane-change prediction with object detection and LSTM, GRU, and TCN sequence models.</p><span class="history-index mono">03</span></article>
+        <article class="history-entry"><p class="history-date mono">JAN 2023<br>— JUL 2023</p><div class="history-role"><h3>Artificial Intelligence Research Assistant</h3><p>IGDM Lab, University of Calgary <span>·</span> Remote</p></div><p class="history-outcome">Implemented graph-based traffic forecasting and an interactive visualization of road-network patterns.</p><span class="history-index mono">04</span></article>
+        <article class="history-entry"><p class="history-date mono">JUL 2022<br>— SEP 2022</p><div class="history-role"><h3>Globalink Research Intern</h3><p>MITACS / IGDM Lab, University of Calgary</p></div><p class="history-outcome">Applied forecasting models to parcel demand, driver behavior, and speed for regional delivery-network optimization.</p><span class="history-index mono">05</span></article>
+      </div>
+      <div class="history-foot mono"><span>CURRENT ROLE: SOFTWARE DEVELOPER I / AI INNOVATION, KINAXIS</span><a href="https://www.linkedin.com/in/ravindranath-sawane/" target="_blank" rel="noopener noreferrer">FULL CAREER DETAILS ON LINKEDIN <b>↗</b></a></div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills section">
-        <div class="container">
-            <h2 class="section-title">Skills & Expertise</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon"><i class="fas fa-code"></i></div>
-                    <h3>Languages</h3>
-                    <div class="skill-tags">
-                        <span class="tag"><i class="devicon-python-plain"></i> Python</span>
-                        <span class="tag"><i class="devicon-r-plain"></i> R</span>
-                        <span class="tag"><i class="devicon-matlab-plain"></i> MATLAB</span>
-                        <span class="tag"><i class="devicon-cplusplus-plain"></i> C++</span>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon"><i class="fas fa-brain"></i></div>
-                    <h3>ML/AI</h3>
-                    <div class="skill-tags">
-                        <span class="tag"><i class="devicon-tensorflow-original"></i> TensorFlow</span>
-                        <span class="tag"><i class="devicon-pytorch-original"></i> PyTorch</span>
-                        <span class="tag"><i class="devicon-keras-plain"></i> Keras</span>
-                        <span class="tag"><i class="devicon-scikitlearn-plain"></i> Scikit-learn</span>
-                        <span class="tag"><i class="fas fa-eye"></i> YOLO</span>
-                        <span class="tag"><i class="devicon-opencv-plain"></i> OpenCV</span>
-                        <span class="tag"><i class="fas fa-link"></i> LangChain</span>
-                        <span class="tag"><i class="fas fa-robot"></i> GPT/Gemini</span>
-                        <span class="tag"><i class="fas fa-project-diagram"></i> RAG</span>
-                        <span class="tag"><i class="fas fa-brain"></i> LLM</span>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon"><i class="fas fa-tools"></i></div>
-                    <h3>Tools & Platforms</h3>
-                    <div class="skill-tags">
-                        <span class="tag"><i class="devicon-kubernetes-plain"></i> Kubernetes</span>
-                        <span class="tag"><i class="devicon-docker-plain"></i> Docker</span>
-                        <span class="tag"><i class="devicon-azure-plain"></i> Azure</span>
-                        <span class="tag"><i class="devicon-googlecloud-plain"></i> GCP</span>
-                        <span class="tag"><i class="devicon-git-plain"></i> Git</span>
-                        <span class="tag"><i class="devicon-jupyter-plain"></i> Jupyter</span>
-                        <span class="tag"><i class="devicon-flask-original"></i> Flask</span>
-                        <span class="tag"><i class="fas fa-chart-bar"></i> Plotly</span>
-                        <span class="tag"><i class="fas fa-server"></i> Slurm</span>
-                        <span class="tag"><i class="devicon-github-original"></i> Actions</span>
-                        <span class="tag"><i class="fas fa-dharmachakra"></i> Helm</span>
-                        <span class="tag"><i class="devicon-argocd-plain"></i> Argo</span>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon"><i class="fas fa-database"></i></div>
-                    <h3>Databases</h3>
-                    <div class="skill-tags">
-                        <span class="tag"><i class="fas fa-database"></i> SQL</span>
-                        <span class="tag"><i class="devicon-postgresql-plain"></i> PostgreSQL</span>
-                        <span class="tag"><i class="devicon-mongodb-plain"></i> MongoDB</span>
-                    </div>
-                </div>
-            </div>
+    <section class="work-section" id="work" aria-labelledby="workTitle">
+      <div class="section-heading">
+        <div><p class="eyebrow"><span class="section-index">02</span> THE WORKING SET</p><h2 id="workTitle">Built around<br><em>real problems.</em></h2></div>
+        <p class="heading-note">Four different questions.<br>Four very different systems.</p>
+      </div>
+
+      <div class="workbench" id="workbench">
+        <div class="work-index" role="tablist" aria-label="Selected projects" aria-orientation="vertical">
+          <p class="index-label mono">SELECT A FIELD NOTE <span>01—04</span></p>
+          <button class="project-tab is-active" id="tab-devx" role="tab" aria-selected="true" aria-controls="panel-devx" tabindex="0" data-project="devx"><span class="tab-no mono">01</span><span class="tab-title">KXS DevX</span><span class="tab-sub">Developer workflow</span><span class="tab-arrow">↗</span></button>
+          <button class="project-tab" id="tab-kinara" role="tab" aria-selected="false" aria-controls="panel-kinara" tabindex="-1" data-project="kinara"><span class="tab-no mono">02</span><span class="tab-title">Kinara RAG</span><span class="tab-sub">Grounded answers</span><span class="tab-arrow">↗</span></button>
+          <button class="project-tab" id="tab-jiraxis" role="tab" aria-selected="false" aria-controls="panel-jiraxis" tabindex="-1" data-project="jiraxis"><span class="tab-no mono">03</span><span class="tab-title">JIRAXIS AI</span><span class="tab-sub">Agents that take action</span><span class="tab-arrow">↗</span></button>
+          <button class="project-tab" id="tab-research" role="tab" aria-selected="false" aria-controls="panel-research" tabindex="-1" data-project="research"><span class="tab-no mono">04</span><span class="tab-title">Eyes on the road</span><span class="tab-sub">Driver-maneuver research</span><span class="tab-arrow">↗</span></button>
+          <p class="index-foot mono">USE THE ARROW KEYS<br>OR PICK A PROJECT</p>
         </div>
+
+        <div class="project-panels">
+          <article class="project-panel is-active" id="panel-devx" role="tabpanel" aria-labelledby="tab-devx" tabindex="0">
+            <div class="project-visual visual-devx" role="img" aria-label="Diagram of the developer workflow: request, plan, implementation, review">
+              <div class="visual-note mono"><span>DEVX / AGENTIC FRAMEWORK</span><span class="visual-status"><i></i> IN THE LOOP</span></div>
+              <div class="devx-window"><div class="window-head"><span>WORK ITEM / 08:42</span><div><i></i><i></i><i></i></div></div><div class="devx-request"><span class="mono">DEVELOPER INTENT</span><p>“Add a validation step before<br>the workflow creates a change.”</p><span class="request-mark">↗</span></div><div class="devx-flow"><div class="devx-step"><i>01</i><b>Intake</b><small>understand</small></div><span class="step-arrow">→</span><div class="devx-step active"><i>02</i><b>Plan</b><small>break it down</small></div><span class="step-arrow">→</span><div class="devx-step"><i>03</i><b>Build</b><small>make the change</small></div><span class="step-arrow">→</span><div class="devx-step"><i>04</i><b>Review</b><small>human checkpoint</small></div></div><div class="devx-log mono"><span><b>✓</b> CONTEXT GATHERED</span><span><b>↗</b> PLAN READY FOR REVIEW</span><span class="log-blink">▌</span></div></div>
+              <div class="visual-caption"><span>INTENT → WORKING CHANGE</span><span>PROCESS MAP / 01</span></div>
+              <span class="visual-stamp">−30<small>%</small></span>
+            </div>
+            <div class="project-copy"><div class="project-topline mono"><span>CASE 01 / DEVELOPER TOOLS</span><span>KINAXIS</span></div><h3>KXS <em>DevX</em></h3><p class="project-lead">Shorten the distance between “I need this” and a working change.</p><p class="project-body">An agentic framework that moves a software task through intake, planning, implementation, and review. Designed around the actual work developers do—not a chat window bolted onto it.</p><div class="project-facts"><div><span class="mono">MY FOCUS</span><b>Agentic workflow design</b></div><div><span class="mono">MEASURED IMPACT</span><b>30% shorter development lifecycle</b></div></div><div class="project-bottom mono"><span>HUMAN REVIEW STAYS IN THE LOOP</span><span>01 / 04</span></div></div>
+          </article>
+
+          <article class="project-panel" id="panel-kinara" role="tabpanel" aria-labelledby="tab-kinara" tabindex="0" hidden>
+            <div class="project-visual visual-kinara" role="img" aria-label="Illustration of source documents flowing through retrieval into a cited answer">
+              <div class="visual-note mono"><span>MAESTRO / KNOWLEDGE RETRIEVAL</span><span class="visual-status"><i></i> IN DEVELOPMENT</span></div>
+              <div class="kinara-layout"><div class="source-sheets"><div class="source-sheet sheet-back"><i>PLANNING / DATA</i><b></b><b></b><b></b><span class="mono">SOURCE 02</span></div><div class="source-sheet"><i>MAESTRO / GUIDE</i><b></b><b></b><b></b><b></b><span class="mono">SOURCE 01</span></div><div class="sheet-tag mono">PARENT DOCUMENT</div></div><div class="retrieve-line"><svg viewBox="0 0 160 70"><path d="M4 35h145"/><path d="m137 23 13 12-13 12"/><circle r="4"><animateMotion dur="2.6s" repeatCount="indefinite" path="M4 35h145"/></circle></svg><span class="mono">RETRIEVE</span></div><div class="retrieval-core"><div class="core-ring core-ring-one"></div><div class="core-ring core-ring-two"></div><div class="core-label">RAG</div><span class="mono">CONTEXT</span></div><div class="retrieve-line retrieve-line-out"><svg viewBox="0 0 160 70"><path d="M4 35h145"/><path d="m137 23 13 12-13 12"/><circle r="4"><animateMotion dur="3s" repeatCount="indefinite" path="M4 35h145"/></circle></svg><span class="mono">GENERATE</span></div><div class="answer-card"><div class="answer-head mono"><i></i> RESPONSE</div><p>“Here’s the plan change…”</p><div class="citation"><span>↳</span><b>Source: Planning Guide, p. 12</b></div><div class="answer-foot mono">GROUNDED IN THE SOURCE</div></div></div>
+              <div class="visual-caption"><span>SOURCE → CONTEXT → ANSWER</span><span>RETRIEVAL MAP / 02</span></div><span class="visual-stamp stamp-word">CITE<br><small>THE SOURCE</small></span>
+            </div>
+            <div class="project-copy"><div class="project-topline mono"><span>CASE 02 / ENTERPRISE AI</span><span>IN DEVELOPMENT</span></div><h3>Kinara <em>RAG</em></h3><p class="project-lead">An answer is only useful when you can trace where it came from.</p><p class="project-body">A RAG chatbot for Kinaxis Maestro. Parent-document retrieval keeps generated responses tied to the larger source—not an orphaned fragment—so people can follow the context behind an answer.</p><div class="project-facts"><div><span class="mono">CURRENT QUESTION</span><b>How should retrieval preserve context?</b></div><div><span class="mono">IN PROGRESS</span><b>Retrieval + agentic lifecycle</b></div></div><div class="project-bottom mono"><span>BUILT FOR SOURCE-GROUNDED ANSWERS</span><span>02 / 04</span></div></div>
+          </article>
+
+          <article class="project-panel" id="panel-jiraxis" role="tabpanel" aria-labelledby="tab-jiraxis" tabindex="0" hidden>
+            <div class="project-visual visual-jiraxis" role="img" aria-label="Specialist agents coordinating to act on a Jira issue">
+              <div class="visual-note mono"><span>JIRAXIS / TASK COORDINATION</span><span class="visual-status"><i></i> BUILT</span></div>
+              <div class="jira-canvas"><svg class="jira-wires" viewBox="0 0 700 430" preserveAspectRatio="none"><path d="M350 214 126 112M350 214 574 112M350 214 126 322M350 214 574 322"/><path class="wire-dash" d="M126 112 574 112M126 322 574 322"/></svg><div class="jira-node jira-node--hub"><div class="hub-mark">J<span>✳</span></div><b>ORCHESTRATOR</b><small>Gemini 2.5 Pro</small></div><div class="jira-node jira-node--triage"><span class="agent-glyph">⌕</span><b>Triage</b><small>read the issue</small></div><div class="jira-node jira-node--plan"><span class="agent-glyph">↗</span><b>Planner</b><small>route the task</small></div><div class="jira-node jira-node--tool"><span class="agent-glyph">⌘</span><b>Tool agent</b><small>take action</small></div><div class="jira-node jira-node--state"><span class="agent-glyph">◷</span><b>State</b><small>keep the thread</small></div><div class="jira-packet"></div><div class="jira-footer mono"><span>AGENT-TO-AGENT HANDOFF</span><span>STATE PERSISTS</span></div></div>
+              <div class="visual-caption"><span>ONE REQUEST / SPECIALIST AGENTS</span><span>AGENT MAP / 03</span></div><span class="visual-stamp stamp-word">ASK<br><small>→ ROUTE → ACT</small></span>
+            </div>
+            <div class="project-copy"><div class="project-topline mono"><span>CASE 03 / PERSONAL BUILD</span><span>GOOGLE CLOUD</span></div><h3>JIRAXIS <em>AI</em></h3><p class="project-lead">A Jira request can need more than one kind of thinking.</p><p class="project-body">A Gemini-powered assistant that hands work between specialist agents. Built with Google Cloud ADK, explicit workflow state, and tool calling so a request can move from issue to action.</p><div class="project-facts"><div><span class="mono">SYSTEM DESIGN</span><b>Specialists + orchestration</b></div><div><span class="mono">BUILT WITH</span><b>ADK · Gemini 2.5 Pro · A2A</b></div></div><div class="project-bottom mono"><span>STATEFUL, SPECIALIST COORDINATION</span><span>03 / 04</span></div></div>
+          </article>
+
+          <article class="project-panel" id="panel-research" role="tabpanel" aria-labelledby="tab-research" tabindex="0" hidden>
+            <div class="project-visual visual-research" role="img" aria-label="Road scene with gaze direction and vehicle motion feeding a sequence model">
+              <div class="visual-note mono"><span>DRIVER MANEUVER / TEMPORAL VISION</span><span class="visual-status"><i></i> MSc RESEARCH</span></div>
+              <div class="road-study"><div class="road-sky"><span>OTTAWA / LONDON DATA</span><span>FRAME t−04 → t</span></div><div class="road-lines"><i class="lane lane-left"></i><i class="lane lane-right"></i><i class="horizon"></i><div class="research-car car-main"><i></i><span>SUBJECT</span></div><div class="research-car car-near"><i></i></div><div class="research-car car-far"><i></i></div><svg class="gaze-ray" viewBox="0 0 700 370"><path d="M330 289 486 171 575 154"/><circle cx="575" cy="154" r="8"/><circle cx="575" cy="154" r="20"/></svg><span class="gaze-label mono">GAZE / OBJECT</span></div><div class="sequence-readout"><div class="sequence-title mono">SLIDING WINDOW / PREDICTION</div><div class="sequence-models"><span>LSTM</span><span>GRU</span><span>TCN</span><b>→</b><strong>LANE CHANGE?</strong></div><div class="timebar"><i></i><i></i><i></i><i></i><i></i><i class="now"></i></div></div></div>
+              <div class="visual-caption"><span>GAZE + OBJECTS → NEXT MANEUVER</span><span>RESEARCH PLATE / 04</span></div><span class="visual-stamp stamp-word">LOOK<br><small>THEN PREDICT</small></span>
+            </div>
+            <div class="project-copy"><div class="project-topline mono"><span>CASE 04 / APPLIED RESEARCH</span><span>WESTERN UNIVERSITY</span></div><h3>Eyes on<br>the <em>road.</em></h3><p class="project-lead">Can attention and surrounding motion reveal what a driver will do next?</p><p class="project-body">My MSc thesis combined gaze signals and object detection with sliding-window sequence models to study driver maneuvers—connecting what a driver looks at with the motion developing around them.</p><div class="project-facts"><div><span class="mono">MODELS</span><b>LSTM · GRU · TCN</b></div><div><span class="mono">VISUAL SIGNAL</span><b>YOLO / signs, lights, objects</b></div></div><div class="project-bottom mono"><span>COMPUTER VISION / SEQUENCE MODELING</span><span>04 / 04</span></div></div>
+          </article>
+        </div>
+      </div>
+      <div class="work-note mono"><span>THESE ARE STARTING POINTS.</span><a href="https://www.linkedin.com/in/ravindranath-sawane/" target="_blank" rel="noopener noreferrer">LET’S TALK ABOUT THE DETAILS <b>↗</b></a></div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects section">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-content">
-                        <h3>Kinara RAG Chatbot</h3>
-                        <p>
-                            Developing a Retrieval Augmented Generation (RAG) Chatbot using Large Language Models on Kinaxis Maestro Platform.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">LLM</span>
-                            <span class="tag">RAG</span>
-                            <span class="tag">Maestro</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-content">
-                        <h3>JIRAXIS AI Assistant</h3>
-                        <p>
-                            Advanced AI-powered assistant using Google Cloud ADK to manage JIRA issues with Gemini 2.5 Pro and specialized sub-agents.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">GCP</span>
-                            <span class="tag">Gemini</span>
-                            <span class="tag">AI Agents</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-content">
-                        <h3>Driver Maneuver Prediction</h3>
-                        <p>
-                            Gaze-Informed Driver Maneuver Prediction using Object Detection and Sequential Deep Learning Models (LSTM, GRU & TCN) for ADAS.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Deep Learning</span>
-                            <span class="tag">Computer Vision</span>
-                            <span class="tag">ADAS</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-content">
-                        <h3>Supply Chain Optimization</h3>
-                        <p>
-                            Reinforcement learning and time-series models (LSTM, ARIMA, Holt’s) to optimise parcel delivery supply chains and enable GIS-based route mapping.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">RL</span>
-                            <span class="tag">Time-Series</span>
-                            <span class="tag">GIS</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-content">
-                        <h3>Assistive Navigation System</h3>
-                        <p>
-                            Deep learning–based assistive navigation system for the visually impaired, utilising computer vision and NLP for real-time scene understanding.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">CV</span>
-                            <span class="tag">NLP</span>
-                            <span class="tag">Accessibility</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-content">
-                        <h3>Mask Detection System</h3>
-                        <p>
-                            Real-time mask detection and student identification system using deep learning and computer vision techniques.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Deep Learning</span>
-                            <span class="tag">CV</span>
-                            <span class="tag">Real-time</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="approach-section" id="approach" aria-labelledby="approachTitle">
+      <div class="approach-head"><p class="eyebrow"><span class="section-index">03</span> A DESIGN PRINCIPLE</p><p class="mono approach-aside">WHAT HAPPENS<br>AFTER THE DEMO?</p></div>
+      <div class="approach-main"><h2 id="approachTitle">A clever model<br>is a <em>beginning.</em></h2><div class="approach-detail"><p class="approach-big">The difficult part is making it dependable in someone else’s hands.</p><div class="approach-layers"><div><span class="layer-number mono">A</span><b>Give it context</b><p>Connect the answer to the real information behind it.</p></div><div><span class="layer-number mono">B</span><b>Let it do useful work</b><p>Give it tools and a path through the task—not infinite freedom.</p></div><div><span class="layer-number mono">C</span><b>Make it reviewable</b><p>Keep a person in control of the important decisions.</p></div></div></div></div>
+      <div class="approach-mark" aria-hidden="true"><svg viewBox="0 0 130 130"><circle cx="65" cy="65" r="48"/><circle cx="65" cy="65" r="29"/><path d="M65 6v118M6 65h118"/><circle cx="65" cy="65" r="5"/></svg></div>
     </section>
 
-    <!-- Education Section -->
-    <section id="education" class="education section">
-        <div class="container">
-            <h2 class="section-title">Education</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Masters of Science in Computer Science, AI</h3>
-                        <h4>Western University, London, Canada</h4>
-                        <p class="timeline-date"><i class="far fa-calendar"></i> Sep. 2023 – Aug. 2025</p>
-                        <p>CGPA: 3.9/4</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3>Bachelor of Technology in Artificial Intelligence</h3>
-                        <h4>Nagpur University, Nagpur, India</h4>
-                        <p class="timeline-date"><i class="far fa-calendar"></i> Aug. 2019 – July 2023</p>
-                        <p>CGPA: 8.9/10</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="about-section" id="about" aria-labelledby="aboutTitle">
+      <div class="about-label"><p class="eyebrow"><span class="section-index">04</span> BEYOND THE SYSTEMS</p><span class="about-coord mono">43° 39′ N<br>TORONTO, ON</span></div>
+      <div class="about-copy"><h2 id="aboutTitle">Engineer by work.<br><em>Curious by nature.</em></h2><p>I’m Ravindranath—a software developer in AI at Kinaxis. I studied computer science at Western University, where my MSc research focused on gaze-aware driver-maneuver prediction.</p><p>I like the space between a promising idea and the moment it becomes genuinely useful. That’s where I spend most of my time.</p><div class="about-links"><a href="https://www.linkedin.com/in/ravindranath-sawane/" target="_blank" rel="noopener noreferrer">LinkedIn <span>↗</span></a><a href="mailto:ravisawane9@gmail.com">Email me <span>↗</span></a></div></div>
+      <div class="about-scribble" aria-hidden="true"><span>R</span><svg viewBox="0 0 260 85"><path d="M4 50 C38 8 55 80 92 37 S140 65 166 34 214 68 255 15"/></svg><span class="mono">STAY CURIOUS / KEEP BUILDING</span></div>
     </section>
 
-    <!-- Publications Section -->
-    <section id="publications" class="publications section">
-        <div class="container">
-            <h2 class="section-title">Publications</h2>
-            <div class="publications-list">
-                <div class="publication-item">
-                    <p><strong>Gaze-Aware Driver Maneuver Prediction Using Object Detection and Sequential Deep Learning Models for Advanced Driver Assistance Systems</strong> (The University of Western Ontario, 2025)</p>
-                </div>
-                <div class="publication-item">
-                    <p><strong>Incorporating Deep Q–Network with Multiclass Classification Algorithms</strong> (arXiv preprint, 2023)</p>
-                </div>
-                <div class="publication-item">
-                    <p><strong>A Real-Time Mobile-Net Approach for Mask Detection and Identity Identification System</strong> (IJECS, 2022)</p>
-                </div>
-                <div class="publication-item">
-                    <p><strong>Comparison of Various Machine Learning Techniques Based on Variable Selection under Imbalanced Data</strong> (IJEDR, 2022)</p>
-                </div>
-                <div class="publication-item">
-                    <p><strong>The Comparison of Supply Chain Management using Quantum Computing and Classical Computing</strong> (IJCRT, 2022)</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section class="contact-section" id="contact" aria-labelledby="contactTitle"><div class="contact-top mono"><span>05 / THE NEXT QUESTION</span><span>INBOX OPEN</span></div><div class="contact-body"><h2 id="contactTitle">Got a good<br><em>problem?</em></h2><div class="contact-invite"><p>I’m always interested in thoughtful conversations about AI, useful software, and research that goes somewhere.</p><a class="contact-button" href="mailto:ravisawane9@gmail.com">ravisawane9@gmail.com <span>↗</span></a></div></div><div class="contact-bottom mono"><span>RAVINDRANATH SAWANE</span><span>TORONTO, CANADA</span><a href="#top">BACK TO THE TOP ↑</a></div><div class="contact-doodle" aria-hidden="true"><svg viewBox="0 0 400 400"><path d="M197 9c104 0 188 84 188 188s-84 188-188 188S9 301 9 197 93 9 197 9Z"/><path d="M197 57c78 0 140 62 140 140s-62 140-140 140S57 275 57 197 119 57 197 57Z"/><path d="M197 105c51 0 92 41 92 92s-41 92-92 92-92-41-92-92 41-92 92-92Z"/><path d="M197 9v376M9 197h376"/><circle cx="197" cy="197" r="9"/></svg></div></section>
+  </main>
 
-    <!-- Achievements Section -->
-    <section id="achievements" class="achievements section">
-        <div class="container">
-            <h2 class="section-title">Achievements</h2>
-            <div class="achievements-list">
-                <div class="achievement-item">
-                    <i class="fas fa-trophy"></i>
-                    <p>Awarded a total of <strong>CAD $88,000</strong> in competitive funding through MITACS and Western University to support research and master’s studies.</p>
-                </div>
-                <div class="achievement-item">
-                    <i class="fas fa-award"></i>
-                    <p>Awarded the <strong>IEEE Computer Society Richard E. Merwin Scholarship</strong> (Spring 2022), recognising leadership and academic excellence with a USD $1,000 reward.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <p class="lead">
-                        I'm always interested in hearing about new opportunities, projects, or just 
-                        connecting with fellow developers. Feel free to reach out!
-                    </p>
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <h4>Email</h4>
-                                <a href="mailto:ravisawane9@gmail.com">ravisawane9@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <i class="fab fa-linkedin"></i>
-                            <div>
-                                <h4>LinkedIn</h4>
-                                <a href="https://www.linkedin.com/in/ravindranath-sawane" target="_blank" rel="noopener noreferrer">
-                                    linkedin.com/in/ravindranath-sawane
-                                </a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <i class="fab fa-github"></i>
-                            <div>
-                                <h4>GitHub</h4>
-                                <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer">
-                                    github.com/ravindranath-sawane
-                                </a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <i class="fas fa-graduation-cap"></i>
-                            <div>
-                                <h4>Google Scholar</h4>
-                                <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer">
-                                    View Profile
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form-container">
-                    <form class="contact-form" id="contactForm" action="https://formsubmit.co/ravisawane9@gmail.com" method="POST">
-                        <!-- FormSubmit Configuration -->
-                        <input type="hidden" name="_subject" value="New Contact from Portfolio Website">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_template" value="table">
-                        
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Ravindranath Sawane. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="https://www.linkedin.com/in/ravindranath-sawane" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
-        </div>
-    </footer>
-
-    <script type="module" src="scene.js"></script>
-    <script src="script.js"></script>
+  <footer class="site-footer mono"><span>© <span id="year"></span> RAVINDRANATH SAWANE</span><span>THOUGHTFULLY BUILT IN TORONTO</span><a href="#top">RS ↑</a></footer>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
