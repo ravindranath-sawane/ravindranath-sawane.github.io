@@ -5,7 +5,7 @@ const canvas = document.getElementById('scene-canvas');
 if (canvas) {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xd6e5de);
+    scene.background = new THREE.Color(0x070b15);
 
     const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
     camera.position.set(7, 7, 11);
@@ -14,35 +14,37 @@ if (canvas) {
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.15;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     const world = new THREE.Group();
     scene.add(world);
 
-    scene.add(new THREE.HemisphereLight(0xf4f7f3, 0x668078, 2.5));
-    const keyLight = new THREE.DirectionalLight(0xffffff, 3);
+    scene.add(new THREE.HemisphereLight(0x8cecff, 0x11152b, 2.1));
+    const keyLight = new THREE.DirectionalLight(0xd9f6ff, 3.2);
     keyLight.position.set(4, 9, 5);
     keyLight.castShadow = true;
     scene.add(keyLight);
 
-    const grid = new THREE.GridHelper(30, 30, 0x6f9d91, 0x9abdb2);
+    const grid = new THREE.GridHelper(30, 30, 0x27eaff, 0x163653);
     grid.position.y = -0.05;
-    grid.material.opacity = 0.52;
+    grid.material.opacity = 0.38;
     grid.material.transparent = true;
     world.add(grid);
 
     const floor = new THREE.Mesh(
         new THREE.CircleGeometry(15, 48),
-        new THREE.MeshStandardMaterial({ color: 0xc4d9d0, roughness: 1 })
+        new THREE.MeshStandardMaterial({ color: 0x0a1321, roughness: 0.84, metalness: 0.18 })
     );
     floor.rotation.x = -Math.PI / 2;
     floor.position.y = -0.08;
     floor.receiveShadow = true;
     world.add(floor);
 
-    const roadMaterial = new THREE.MeshStandardMaterial({ color: 0x29433f, roughness: 0.92 });
-    const roadMarkMaterial = new THREE.MeshBasicMaterial({ color: 0xf7c873 });
+    const roadMaterial = new THREE.MeshStandardMaterial({ color: 0x111d31, roughness: 0.72, metalness: 0.24 });
+    const roadMarkMaterial = new THREE.MeshBasicMaterial({ color: 0x37eaff });
     const road = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.04, 22), roadMaterial);
     road.position.y = -0.02;
     world.add(road);
@@ -60,9 +62,9 @@ if (canvas) {
     }
 
     const buildingMaterials = [
-        new THREE.MeshStandardMaterial({ color: 0xf4f1e8, roughness: 0.78 }),
-        new THREE.MeshStandardMaterial({ color: 0xd75a3a, roughness: 0.7 }),
-        new THREE.MeshStandardMaterial({ color: 0x087f73, roughness: 0.7 })
+        new THREE.MeshStandardMaterial({ color: 0x14253b, roughness: 0.62, metalness: 0.3 }),
+        new THREE.MeshStandardMaterial({ color: 0x332451, roughness: 0.58, metalness: 0.34 }),
+        new THREE.MeshStandardMaterial({ color: 0x0f3545, roughness: 0.52, metalness: 0.38 })
     ];
     const buildings = [
         [-5.6, 0.9, -4.2, 2.2, 1.8, 2.2, 0],
@@ -83,7 +85,7 @@ if (canvas) {
         world.add(building);
         const roof = new THREE.Mesh(
             new THREE.BoxGeometry(width + 0.12, 0.12, depth + 0.12),
-            new THREE.MeshStandardMaterial({ color: 0x142522, roughness: 0.8 })
+            new THREE.MeshStandardMaterial({ color: 0x080d19, roughness: 0.72, metalness: 0.24 })
         );
         roof.position.set(x, height + 0.06, z);
         roof.castShadow = true;
@@ -99,7 +101,7 @@ if (canvas) {
     ramp.castShadow = true;
     world.add(ramp);
 
-    const nodeColors = [0x087f73, 0xd75a3a, 0xb47716];
+    const nodeColors = [0x34f4ff, 0xff4fd8, 0x9b8cff];
     const nodes = [];
     const nodePositions = [
         new THREE.Vector3(-3.4, 0.55, -1.5),
@@ -128,7 +130,7 @@ if (canvas) {
             new THREE.Vector3(position.x, 0.55, position.z),
             new THREE.Vector3(nextPosition.x, 0.55, nextPosition.z)
         ]);
-        const line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x087f73, transparent: true, opacity: 0.7 }));
+        const line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x39e9ff, transparent: true, opacity: 0.78 }));
         world.add(line);
         return line;
     });
@@ -137,14 +139,14 @@ if (canvas) {
     core.position.set(0, 0.9, 0);
     const coreMesh = new THREE.Mesh(
         new THREE.OctahedronGeometry(0.9, 0),
-        new THREE.MeshStandardMaterial({ color: 0x142522, roughness: 0.22, metalness: 0.45, flatShading: true })
+        new THREE.MeshStandardMaterial({ color: 0x14213a, emissive: 0x17245a, emissiveIntensity: 0.48, roughness: 0.2, metalness: 0.55, flatShading: true })
     );
     coreMesh.castShadow = true;
     core.add(coreMesh);
 
     const coreRing = new THREE.Mesh(
         new THREE.TorusGeometry(1.25, 0.025, 8, 48),
-        new THREE.MeshBasicMaterial({ color: 0xd75a3a, transparent: true, opacity: 0.82 })
+        new THREE.MeshBasicMaterial({ color: 0xff4fd8, transparent: true, opacity: 0.9 })
     );
     coreRing.rotation.x = Math.PI / 2;
     core.add(coreRing);
@@ -152,7 +154,7 @@ if (canvas) {
 
     const beacon = new THREE.Mesh(
         new THREE.CylinderGeometry(0.08, 0.08, 2.8, 8),
-        new THREE.MeshStandardMaterial({ color: 0xf7c873, emissive: 0x6b4a0a, emissiveIntensity: 0.25 })
+        new THREE.MeshStandardMaterial({ color: 0x48f5ff, emissive: 0x17bde8, emissiveIntensity: 0.75 })
     );
     beacon.position.set(0, 2.2, 0);
     beacon.castShadow = true;
@@ -161,7 +163,7 @@ if (canvas) {
     const agent = new THREE.Group();
     const agentBody = new THREE.Mesh(
         new THREE.BoxGeometry(0.85, 0.35, 1.15),
-        new THREE.MeshStandardMaterial({ color: 0xd75a3a, roughness: 0.3, metalness: 0.22 })
+        new THREE.MeshStandardMaterial({ color: 0xff4fd8, emissive: 0x54124f, emissiveIntensity: 0.24, roughness: 0.28, metalness: 0.35 })
     );
     agentBody.position.y = 0.3;
     agentBody.castShadow = true;
@@ -169,7 +171,7 @@ if (canvas) {
 
     const agentTop = new THREE.Mesh(
         new THREE.ConeGeometry(0.27, 0.4, 4),
-        new THREE.MeshStandardMaterial({ color: 0xf7c873, roughness: 0.28 })
+        new THREE.MeshStandardMaterial({ color: 0x54f5ff, emissive: 0x18849d, emissiveIntensity: 0.45, roughness: 0.24 })
     );
     agentTop.rotation.y = Math.PI / 4;
     agentTop.position.set(0, 0.66, 0);
@@ -177,7 +179,7 @@ if (canvas) {
     agent.add(agentTop);
 
     const wheelGeometry = new THREE.CylinderGeometry(0.14, 0.14, 0.12, 12);
-    const wheelMaterial = new THREE.MeshStandardMaterial({ color: 0x142522, roughness: 0.7 });
+    const wheelMaterial = new THREE.MeshStandardMaterial({ color: 0x080d19, roughness: 0.7 });
     [-0.42, 0.42].forEach((xPosition) => {
         const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
         wheel.rotation.z = Math.PI / 2;
@@ -197,7 +199,7 @@ if (canvas) {
     let targetRotationX = 0;
 
     window.addEventListener('keydown', (event) => {
-        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(event.key)) {
+        if (document.activeElement === canvas && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(event.key.toLowerCase())) {
             event.preventDefault();
             keys.add(event.key.toLowerCase());
         }
@@ -232,13 +234,18 @@ if (canvas) {
     }
 
     const clock = new THREE.Clock();
+    let sceneInView = true;
+    let animationFrameId = null;
+
     function animate() {
+        animationFrameId = null;
+        if (document.hidden || !sceneInView) return;
         const elapsed = clock.getElapsedTime();
         if (reducedMotion) {
             renderer.render(scene, camera);
             return;
         }
-        requestAnimationFrame(animate);
+        animationFrameId = requestAnimationFrame(animate);
         moveAgent();
         world.rotation.y += (targetRotationY - world.rotation.y) * 0.025;
         world.rotation.x += (targetRotationX - world.rotation.x) * 0.025;
@@ -257,5 +264,23 @@ if (canvas) {
 
     resize();
     window.addEventListener('resize', resize);
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden && animationFrameId !== null) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+        } else if (!document.hidden && sceneInView && animationFrameId === null) {
+            animate();
+        }
+    });
+    const sceneObserver = new IntersectionObserver(([entry]) => {
+        sceneInView = entry.isIntersecting;
+        if (sceneInView && !document.hidden && animationFrameId === null) {
+            animate();
+        } else if (animationFrameId !== null) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+        }
+    });
+    sceneObserver.observe(canvas);
     animate();
 }

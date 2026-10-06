@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ravindranath Sawane - Personal Website">
+    <meta name="description" content="Ravindranath Sawane is an AI/ML engineer building agentic platforms and enterprise supply-chain intelligence systems.">
     <meta name="author" content="Ravindranath Sawane">
-    <title>Ravindranath Sawane | Personal Website</title>
+    <meta name="theme-color" content="#070b15">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ravindranath Sawane | AI/ML Engineer">
+    <meta property="og:description" content="AI/ML engineer building agentic platforms and enterprise supply-chain intelligence systems.">
+    <meta property="og:url" content="https://ravindranath-sawane.github.io/">
+    <link rel="canonical" href="https://ravindranath-sawane.github.io/">
+    <title>Ravindranath Sawane | AI/ML Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,16 +20,17 @@
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <!-- Particle Background -->
     <canvas id="particles-canvas"></canvas>
 
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar" id="navbar" aria-label="Main navigation">
         <div class="container">
             <div class="nav-brand">
                 <a href="#home">Ravindranath Sawane</a>
             </div>
-            <button class="nav-toggle" id="navToggle">
+            <button class="nav-toggle" id="navToggle" type="button" aria-label="Open navigation menu" aria-controls="navMenu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -50,31 +57,32 @@
     </nav>
 
     <!-- Hero Section -->
+    <main id="main">
     <section id="home" class="hero">
-        <canvas id="scene-canvas" aria-label="Interactive 3D AI systems playground"></canvas>
+        <canvas id="scene-canvas" aria-label="Interactive 3D illustration of a connected AI systems network. Use arrow keys or WASD to move the agent." tabindex="0" role="img"></canvas>
         <div class="world-header" aria-hidden="true">
-            <span>RAVINDRANATH / AI SYSTEMS WORLD</span>
-            <span>FIELD TEST 01</span>
+            <span>RAVINDRANATH / INTELLIGENCE SYSTEMS</span>
+            <span>INTERACTIVE ENVIRONMENT <b class="world-live"><i></i> LIVE</b></span>
         </div>
         <a href="#projects" class="world-sign world-sign-projects"><span>01</span><strong>PROJECTS</strong><small>AGENTIC BUILDS</small></a>
         <a href="#experience" class="world-sign world-sign-experience"><span>02</span><strong>EXPERIENCE</strong><small>PRODUCTION SYSTEMS</small></a>
         <a href="#skills" class="world-sign world-sign-skills"><span>03</span><strong>SKILLS</strong><small>TOOLS / PLATFORMS</small></a>
         <div class="scene-hud" aria-hidden="true">
-            <span><i class="fas fa-gamepad"></i> DRAG TO EXPLORE</span>
-            <span><i class="fas fa-arrows-alt"></i> WASD / ARROWS TO MOVE</span>
+            <span><i class="fas fa-crosshairs"></i> MOVE POINTER TO ORBIT</span>
+            <span><i class="fas fa-keyboard"></i> FOCUS SCENE · WASD / ARROWS</span>
         </div>
         <div class="hero-content">
             <div class="hero-text">
-                <p class="hero-kicker">AI SYSTEMS / RESEARCH / ENGINEERING</p>
+                <p class="hero-kicker"><span class="kicker-pulse"></span> AI SYSTEMS <span>/</span> RESEARCH <span>/</span> ENGINEERING</p>
                 <h1 class="hero-title">Hello, I'm <span class="highlight">Ravindranath Sawane</span></h1>
-                <p class="hero-subtitle">AI/ML Engineer | Agentic AI Platforms | Enterprise Supply Chain Intelligence</p>
+                <p class="hero-subtitle">AI/ML engineer building agentic platforms and enterprise supply-chain intelligence.</p>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary">Get In Touch</a>
                     <a href="#projects" class="btn btn-secondary">View My Work</a>
                 </div>
                 <div class="hero-status" aria-label="Current status">
                     <span class="status-dot"></span>
-                    <span>Currently building agentic AI systems at Kinaxis</span>
+                    <span>Building agentic AI systems at <strong>Kinaxis</strong></span>
                 </div>
             </div>
         </div>
@@ -99,17 +107,14 @@
                         My toolkit spans Python, C#, .NET, Claude Code, Microsoft Agent Framework, Vertex AI, Kubernetes, Databricks, MCP/A2A communication, RAG, OpenTelemetry, and PostgreSQL. I hold an MSc. in Computer Science with a focus on AI from Western University.
                     </p>
                     <div class="social-links">
-                        <a href="https://www.linkedin.com/in/ravindranath-sawane" target="_blank" rel="noopener noreferrer" class="social-link">
+                        <a href="https://www.linkedin.com/in/ravindranath-sawane/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn profile">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer" class="social-link">
+                        <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub profile">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="mailto:ravisawane9@gmail.com" class="social-link">
+                        <a href="mailto:ravisawane9@gmail.com" class="social-link" aria-label="Email Ravindranath">
                             <i class="fas fa-envelope"></i>
-                        </a>
-                        <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="social-link" title="Google Scholar">
-                            <i class="fas fa-graduation-cap"></i>
                         </a>
                     </div>
                 </div>
@@ -455,7 +460,7 @@
                             <i class="fab fa-linkedin"></i>
                             <div>
                                 <h4>LinkedIn</h4>
-                                <a href="https://www.linkedin.com/in/ravindranath-sawane" target="_blank" rel="noopener noreferrer">
+                                <a href="https://www.linkedin.com/in/ravindranath-sawane/" target="_blank" rel="noopener noreferrer">
                                     linkedin.com/in/ravindranath-sawane
                                 </a>
                             </div>
@@ -466,15 +471,6 @@
                                 <h4>GitHub</h4>
                                 <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer">
                                     github.com/ravindranath-sawane
-                                </a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <i class="fas fa-graduation-cap"></i>
-                            <div>
-                                <h4>Google Scholar</h4>
-                                <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer">
-                                    View Profile
                                 </a>
                             </div>
                         </div>
@@ -512,15 +508,16 @@
         <div class="container">
             <p>&copy; 2026 Ravindranath Sawane. All rights reserved.</p>
             <div class="footer-links">
-                <a href="https://www.linkedin.com/in/ravindranath-sawane" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/ravindranath-sawane/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
                     <i class="fab fa-linkedin"></i>
                 </a>
-                <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
                     <i class="fab fa-github"></i>
                 </a>
             </div>
         </div>
     </footer>
+    </main>
 
     <script type="module" src="scene.js"></script>
     <script src="script.js"></script>
