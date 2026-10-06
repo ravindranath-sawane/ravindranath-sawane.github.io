@@ -146,6 +146,8 @@ button { cursor: pointer; }
 .visual-orbit { position: absolute; width: 260px; height: 88px; border: 1px solid rgba(242,123,98,.65); border-radius: 50%; transform: rotate(-23deg); }
 .orbit-b { width: 290px; height: 116px; border-color: rgba(217,242,123,.32); transform: rotate(29deg); }
 .visual-jira { background: #47394f; }
+.visual-kinara { background: #20332f; }
+.retrieval-diagram { width: min(82%, 600px); height: auto; overflow: visible; }
 .jira-window { position: relative; display: grid; grid-template-columns: repeat(3,1fr); align-items: center; width: min(72%,390px); height: 150px; padding: 1.3rem; background: rgba(19,22,32,.88); border: 1px solid rgba(255,255,255,.23); border-radius: 10px; box-shadow: 0 24px 70px rgba(0,0,0,.3); transform: rotate(-4deg); }
 .jira-window > span { grid-column: 1/-1; padding-bottom: .8rem; color: rgba(255,255,255,.62); border-bottom: 1px solid rgba(255,255,255,.12); font: .56rem var(--mono); letter-spacing: .09em; }
 .jira-window i { display: grid; width: 39px; height: 39px; place-items: center; color: var(--ink); background: #a5d7df; border-radius: 50%; font-style: normal; font-size: 1.2rem; }
