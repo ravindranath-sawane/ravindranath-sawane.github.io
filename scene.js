@@ -1,424 +1,165 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.178.0/build/three.module.js';
-
 const canvas = document.getElementById('scene-canvas');
+const hero = document.querySelector('.hero');
 
-if (canvas) {
+if (canvas && hero) {
+    const context = canvas.getContext('2d', { alpha: true });
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x070b15);
+    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    let width = 0;
+    let height = 0;
+    let pixelRatio = 1;
+    let visible = true;
+    let frame = null;
+    let startTime = performance.now();
 
-    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-    camera.position.set(7, 7, 11);
-    camera.lookAt(0, 0, 0);
-
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-    const world = new THREE.Group();
-    scene.add(world);
-
-    scene.add(new THREE.HemisphereLight(0x8cecff, 0x11152b, 2.1));
-    const keyLight = new THREE.DirectionalLight(0xd9f6ff, 3.2);
-    keyLight.position.set(4, 9, 5);
-    keyLight.castShadow = true;
-    scene.add(keyLight);
-
-    const grid = new THREE.GridHelper(30, 30, 0x27eaff, 0x163653);
-    grid.position.y = -0.05;
-    grid.material.opacity = 0.38;
-    grid.material.transparent = true;
-    world.add(grid);
-
-    const floor = new THREE.Mesh(
-        new THREE.CircleGeometry(15, 48),
-        new THREE.MeshStandardMaterial({ color: 0x0a1321, roughness: 0.84, metalness: 0.18 })
-    );
-    floor.rotation.x = -Math.PI / 2;
-    floor.position.y = -0.08;
-    floor.receiveShadow = true;
-    world.add(floor);
-
-    const roadMaterial = new THREE.MeshStandardMaterial({ color: 0x111d31, roughness: 0.72, metalness: 0.24 });
-    const roadMarkMaterial = new THREE.MeshBasicMaterial({ color: 0x37eaff });
-    const road = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.04, 22), roadMaterial);
-    road.position.y = -0.02;
-    world.add(road);
-    const crossRoad = new THREE.Mesh(new THREE.BoxGeometry(22, 0.04, 2.2), roadMaterial);
-    crossRoad.position.y = -0.015;
-    world.add(crossRoad);
-
-    for (let position = -9; position <= 9; position += 2) {
-        const mark = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.045, 0.75), roadMarkMaterial);
-        mark.position.set(0, 0.01, position);
-        world.add(mark);
-        const crossMark = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.045, 0.1), roadMarkMaterial);
-        crossMark.position.set(position, 0.01, 0);
-        world.add(crossMark);
-    }
-
-    const buildingMaterials = [
-        new THREE.MeshStandardMaterial({ color: 0x14253b, roughness: 0.62, metalness: 0.3 }),
-        new THREE.MeshStandardMaterial({ color: 0x332451, roughness: 0.58, metalness: 0.34 }),
-        new THREE.MeshStandardMaterial({ color: 0x0f3545, roughness: 0.52, metalness: 0.38 })
+    const colors = ['#d9f27b', '#f27b62', '#a5d7df', '#eff2dc'];
+    const routes = [
+        { radius: 0.31, squash: 0.33, tilt: -0.52, speed: 0.12, color: colors[0], phase: 0.09 },
+        { radius: 0.4, squash: 0.22, tilt: 0.39, speed: -0.083, color: colors[1], phase: 0.43 },
+        { radius: 0.49, squash: 0.13, tilt: -0.15, speed: 0.055, color: colors[2], phase: 0.74 },
+        { radius: 0.24, squash: 0.52, tilt: 0.95, speed: -0.16, color: colors[3], phase: 0.61 }
     ];
-    const buildings = [
-        [-5.6, 0.9, -4.2, 2.2, 1.8, 2.2, 0],
-        [5.6, 1.3, -4.2, 2.2, 2.6, 2.2, 1],
-        [-5.3, 1.1, 4.2, 2.5, 2.2, 2.4, 2],
-        [5.4, 0.8, 4.5, 2.4, 1.6, 2.4, 0],
-        [-8, 0.65, -0.4, 1.5, 1.3, 1.7, 1],
-        [8, 0.75, 0.8, 1.5, 1.5, 1.7, 2]
-    ];
-    buildings.forEach(([x, y, z, width, height, depth, materialIndex]) => {
-        const building = new THREE.Mesh(
-            new THREE.BoxGeometry(width, height, depth),
-            buildingMaterials[materialIndex]
-        );
-        building.position.set(x, y, z);
-        building.castShadow = true;
-        building.receiveShadow = true;
-        world.add(building);
-        const roof = new THREE.Mesh(
-            new THREE.BoxGeometry(width + 0.12, 0.12, depth + 0.12),
-            new THREE.MeshStandardMaterial({ color: 0x080d19, roughness: 0.72, metalness: 0.24 })
-        );
-        roof.position.set(x, height + 0.06, z);
-        roof.castShadow = true;
-        world.add(roof);
-    });
-
-    const ramp = new THREE.Mesh(
-        new THREE.BoxGeometry(1.8, 0.5, 3.2),
-        new THREE.MeshStandardMaterial({ color: 0xb47716, roughness: 0.65 })
-    );
-    ramp.position.set(-3.5, 0.25, 4.3);
-    ramp.rotation.x = -0.16;
-    ramp.castShadow = true;
-    world.add(ramp);
-
-    const nodeColors = [0x34f4ff, 0xff4fd8, 0x9b8cff];
-    const glowCanvas = document.createElement('canvas');
-    glowCanvas.width = 128;
-    glowCanvas.height = 128;
-    const glowContext = glowCanvas.getContext('2d');
-    const glowGradient = glowContext.createRadialGradient(64, 64, 2, 64, 64, 64);
-    glowGradient.addColorStop(0, 'rgba(255,255,255,1)');
-    glowGradient.addColorStop(0.18, 'rgba(255,255,255,.76)');
-    glowGradient.addColorStop(0.48, 'rgba(255,255,255,.18)');
-    glowGradient.addColorStop(1, 'rgba(255,255,255,0)');
-    glowContext.fillStyle = glowGradient;
-    glowContext.fillRect(0, 0, 128, 128);
-    const glowTexture = new THREE.CanvasTexture(glowCanvas);
-
-    function makeGlow(color, opacity, scale) {
-        const glow = new THREE.Sprite(new THREE.SpriteMaterial({
-            map: glowTexture,
-            color,
-            transparent: true,
-            opacity,
-            depthWrite: false,
-            blending: THREE.AdditiveBlending
-        }));
-        glow.scale.setScalar(scale);
-        glow.renderOrder = -1;
-        return glow;
-    }
-
-    const nodes = [];
-    const nodePositions = [
-        new THREE.Vector3(-3.4, 0.55, -1.5),
-        new THREE.Vector3(2.8, 0.55, -2.4),
-        new THREE.Vector3(3.8, 0.55, 1.8),
-        new THREE.Vector3(-2.6, 0.55, 2.2)
-    ];
-
-    const nodeGeometry = new THREE.IcosahedronGeometry(0.55, 0);
-    nodePositions.forEach((position, index) => {
-        const node = new THREE.Mesh(
-            nodeGeometry,
-            new THREE.MeshStandardMaterial({
-                color: nodeColors[index % nodeColors.length],
-                emissive: nodeColors[index % nodeColors.length],
-                emissiveIntensity: 0.28,
-                roughness: 0.3,
-                metalness: 0.25
-            })
-        );
-        const glow = makeGlow(nodeColors[index % nodeColors.length], 0.62, 3.1);
-        glow.position.y = -0.1;
-        node.add(glow);
-        node.userData.glow = glow;
-        node.position.copy(position);
-        node.castShadow = true;
-        node.userData.baseY = position.y;
-        node.userData.phase = index * 1.4;
-        const orbit = new THREE.Mesh(
-            new THREE.TorusGeometry(0.78, 0.012, 6, 48),
-            new THREE.MeshBasicMaterial({ color: nodeColors[index % nodeColors.length], transparent: true, opacity: 0.48 })
-        );
-        orbit.rotation.x = Math.PI / 2;
-        orbit.position.y = 0.12;
-        node.add(orbit);
-        node.userData.orbit = orbit;
-        world.add(node);
-        nodes.push(node);
-    });
-
-    const connections = nodePositions.map((position, index) => {
-        const nextPosition = nodePositions[(index + 1) % nodePositions.length];
-        const geometry = new THREE.BufferGeometry().setFromPoints([
-            new THREE.Vector3(position.x, 0.55, position.z),
-            new THREE.Vector3(nextPosition.x, 0.55, nextPosition.z)
-        ]);
-        const line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0x39e9ff, transparent: true, opacity: 0.78 }));
-        world.add(line);
-        return line;
-    });
-
-    // A continuous route carries visible data packets between each supply node.
-    const supplyRoute = new THREE.CatmullRomCurve3(nodePositions, true, 'centripetal');
-    const routeGlow = new THREE.Mesh(
-        new THREE.TubeGeometry(supplyRoute, 160, 0.018, 5, true),
-        new THREE.MeshBasicMaterial({ color: 0x49efff, transparent: true, opacity: 0.35 })
-    );
-    world.add(routeGlow);
-
-    const dataPackets = [0x62f5ff, 0xff65dc, 0xb19aff].map((color, index) => {
-        const packet = new THREE.Mesh(
-            new THREE.IcosahedronGeometry(0.12, 1),
-            new THREE.MeshBasicMaterial({ color })
-        );
-        const glow = makeGlow(color, 0.9, 1.25);
-        packet.add(glow);
-        const halo = new THREE.Mesh(
-            new THREE.TorusGeometry(0.2, 0.012, 5, 24),
-            new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.8 })
-        );
-        halo.rotation.x = Math.PI / 2;
-        packet.add(halo);
-
-        const trailGeometry = new THREE.BufferGeometry();
-        const trailPositions = new Float32Array(18 * 3);
-        trailGeometry.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3).setUsage(THREE.DynamicDrawUsage));
-        const trail = new THREE.Line(
-            trailGeometry,
-            new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.52 })
-        );
-        world.add(packet, trail);
-        return { packet, trail, phase: index / 3, glow };
-    });
-
-    const sparkGeometry = new THREE.BufferGeometry();
-    const sparkPositions = new Float32Array(180 * 3);
-    for (let index = 0; index < 180; index += 1) {
-        const angle = index * 2.399;
-        const radius = 1.8 + ((index * 17) % 100) / 55;
-        sparkPositions[index * 3] = Math.cos(angle) * radius;
-        sparkPositions[index * 3 + 1] = ((index * 29) % 100) / 35 - 1.2;
-        sparkPositions[index * 3 + 2] = Math.sin(angle) * radius;
-    }
-    sparkGeometry.setAttribute('position', new THREE.BufferAttribute(sparkPositions, 3));
-    const sparkField = new THREE.Points(
-        sparkGeometry,
-        new THREE.PointsMaterial({ color: 0x75dfff, size: 0.035, transparent: true, opacity: 0.58, sizeAttenuation: true })
-    );
-    sparkField.position.y = 0.9;
-    world.add(sparkField);
-
-    const core = new THREE.Group();
-    core.position.set(0, 0.9, 0);
-    const coreMesh = new THREE.Mesh(
-        new THREE.OctahedronGeometry(0.9, 0),
-        new THREE.MeshStandardMaterial({ color: 0x14213a, emissive: 0x17245a, emissiveIntensity: 0.48, roughness: 0.2, metalness: 0.55, flatShading: true })
-    );
-    coreMesh.castShadow = true;
-    core.add(makeGlow(0x5e8dff, 0.66, 5.2));
-    core.add(coreMesh);
-
-    const coreRing = new THREE.Mesh(
-        new THREE.TorusGeometry(1.25, 0.025, 8, 48),
-        new THREE.MeshBasicMaterial({ color: 0xff4fd8, transparent: true, opacity: 0.9 })
-    );
-    coreRing.rotation.x = Math.PI / 2;
-    core.add(coreRing);
-    world.add(core);
-
-    const beacon = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.08, 0.08, 2.8, 8),
-        new THREE.MeshStandardMaterial({ color: 0x48f5ff, emissive: 0x17bde8, emissiveIntensity: 0.75 })
-    );
-    beacon.position.set(0, 2.2, 0);
-    beacon.castShadow = true;
-    world.add(beacon);
-
-    const agent = new THREE.Group();
-    const agentBody = new THREE.Mesh(
-        new THREE.BoxGeometry(0.85, 0.35, 1.15),
-        new THREE.MeshStandardMaterial({ color: 0xff4fd8, emissive: 0x54124f, emissiveIntensity: 0.24, roughness: 0.28, metalness: 0.35 })
-    );
-    agentBody.position.y = 0.3;
-    agentBody.castShadow = true;
-    agent.add(agentBody);
-
-    const agentTop = new THREE.Mesh(
-        new THREE.ConeGeometry(0.27, 0.4, 4),
-        new THREE.MeshStandardMaterial({ color: 0x54f5ff, emissive: 0x18849d, emissiveIntensity: 0.45, roughness: 0.24 })
-    );
-    agentTop.rotation.y = Math.PI / 4;
-    agentTop.position.set(0, 0.66, 0);
-    agentTop.castShadow = true;
-    agent.add(agentTop);
-
-    const wheelGeometry = new THREE.CylinderGeometry(0.14, 0.14, 0.12, 12);
-    const wheelMaterial = new THREE.MeshStandardMaterial({ color: 0x080d19, roughness: 0.7 });
-    [-0.42, 0.42].forEach((xPosition) => {
-        const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
-        wheel.rotation.z = Math.PI / 2;
-        wheel.position.set(xPosition, 0.15, 0.32);
-        agent.add(wheel);
-        const rearWheel = wheel.clone();
-        rearWheel.position.z = -0.32;
-        agent.add(rearWheel);
-    });
-    agent.position.set(0, 0, 3.5);
-    world.add(agent);
-
-    const keys = new Set();
-    let pointerX = 0;
-    let pointerY = 0;
-    let targetRotationY = 0;
-    let targetRotationX = 0;
-
-    window.addEventListener('keydown', (event) => {
-        if (document.activeElement === canvas && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(event.key.toLowerCase())) {
-            event.preventDefault();
-            keys.add(event.key.toLowerCase());
-            if (reducedMotion) {
-                moveAgent();
-                renderer.render(scene, camera);
-                keys.delete(event.key.toLowerCase());
-            }
-        }
-    });
-
-    window.addEventListener('keyup', (event) => keys.delete(event.key.toLowerCase()));
-
-    canvas.addEventListener('pointermove', (event) => {
-        const bounds = canvas.getBoundingClientRect();
-        pointerX = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
-        pointerY = ((event.clientY - bounds.top) / bounds.height) * 2 - 1;
-        targetRotationY = pointerX * 0.2;
-        targetRotationX = pointerY * 0.09;
-        if (reducedMotion) {
-            world.rotation.y = targetRotationY;
-            world.rotation.x = targetRotationX;
-            renderer.render(scene, camera);
-        }
-    });
-
-    canvas.addEventListener('pointerleave', () => {
-        targetRotationX = 0;
-        targetRotationY = 0;
-    });
 
     function resize() {
-        const bounds = canvas.getBoundingClientRect();
-        camera.aspect = bounds.width / bounds.height;
-        camera.updateProjectionMatrix();
-        renderer.setSize(bounds.width, bounds.height, false);
+        const bounds = hero.getBoundingClientRect();
+        width = bounds.width;
+        height = bounds.height;
+        pixelRatio = Math.min(window.devicePixelRatio || 1, 1.7);
+        canvas.width = Math.round(width * pixelRatio);
+        canvas.height = Math.round(height * pixelRatio);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        draw(performance.now());
     }
 
-    function moveAgent() {
-        const speed = 0.055;
-        const horizontal = (keys.has('d') || keys.has('arrowright') ? 1 : 0) - (keys.has('a') || keys.has('arrowleft') ? 1 : 0);
-        const depth = (keys.has('s') || keys.has('arrowdown') ? 1 : 0) - (keys.has('w') || keys.has('arrowup') ? 1 : 0);
-        agent.position.x = THREE.MathUtils.clamp(agent.position.x + horizontal * speed, -5.5, 5.5);
-        agent.position.z = THREE.MathUtils.clamp(agent.position.z + depth * speed, -4.5, 5.5);
-        if (horizontal || depth) {
-            agent.rotation.y = Math.atan2(horizontal, depth || 0.001);
+    function pointOnRoute(route, angle, cx, cy, rx, ry, tilt) {
+        const x = Math.cos(angle) * rx;
+        const y = Math.sin(angle) * ry;
+        const cosine = Math.cos(tilt);
+        const sine = Math.sin(tilt);
+        return { x: cx + x * cosine - y * sine, y: cy + x * sine + y * cosine };
+    }
+
+    function draw(timestamp) {
+        if (!width || !height) return;
+        context.clearRect(0, 0, width, height);
+        const compact = width < 700;
+        const cx = width * (compact ? 0.72 : 0.735) + pointer.x * 19;
+        const cy = height * 0.51 + pointer.y * 13;
+        const unit = Math.min(width, height) * (compact ? 0.78 : 0.66);
+        const seconds = reducedMotion ? 0 : (timestamp - startTime) / 1000;
+
+        // A quiet coordinate field gives the orbit artwork a technical, drawn quality.
+        context.save();
+        context.strokeStyle = 'rgba(217,242,123,.055)';
+        context.lineWidth = 1;
+        const spacing = compact ? 46 : 58;
+        for (let x = (cx % spacing + spacing) % spacing; x < width; x += spacing) {
+            context.beginPath(); context.moveTo(x, 0); context.lineTo(x, height); context.stroke();
         }
-    }
+        for (let y = (cy % spacing + spacing) % spacing; y < height; y += spacing) {
+            context.beginPath(); context.moveTo(0, y); context.lineTo(width, y); context.stroke();
+        }
+        context.restore();
 
-    const trailPoint = new THREE.Vector3();
-    function updateDataPackets(elapsed) {
-        dataPackets.forEach(({ packet, trail, phase, glow }) => {
-            const progress = (elapsed * 0.075 + phase) % 1;
-            supplyRoute.getPointAt(progress, packet.position);
-            packet.rotation.y = elapsed * 1.7;
-            glow.scale.setScalar(1.2 + Math.sin(elapsed * 4 + phase * 8) * 0.12);
-            const positions = trail.geometry.attributes.position.array;
-            for (let point = 0; point < 18; point += 1) {
-                const trailProgress = (progress - point * 0.0045 + 1) % 1;
-                supplyRoute.getPointAt(trailProgress, trailPoint);
-                positions[point * 3] = trailPoint.x;
-                positions[point * 3 + 1] = trailPoint.y;
-                positions[point * 3 + 2] = trailPoint.z;
+        routes.forEach((route, routeIndex) => {
+            const rx = unit * route.radius;
+            const ry = unit * route.radius * route.squash;
+            const rotation = route.tilt + pointer.x * 0.045;
+            context.save();
+            context.translate(cx, cy);
+            context.rotate(rotation);
+            context.beginPath();
+            context.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+            context.strokeStyle = routeIndex === 0 ? 'rgba(217,242,123,.55)' : 'rgba(229,238,218,.17)';
+            context.lineWidth = routeIndex === 0 ? 1.2 : 0.8;
+            context.setLineDash(routeIndex === 2 ? [2, 9] : []);
+            context.stroke();
+            context.restore();
+
+            const angle = seconds * route.speed + route.phase * Math.PI * 2;
+            const position = pointOnRoute(route, angle, cx, cy, rx, ry, rotation);
+            const trail = pointOnRoute(route, angle - Math.sign(route.speed) * 0.14, cx, cy, rx, ry, rotation);
+            const gradient = context.createLinearGradient(trail.x, trail.y, position.x, position.y);
+            gradient.addColorStop(0, 'rgba(255,255,255,0)');
+            gradient.addColorStop(1, route.color);
+            context.beginPath();
+            context.moveTo(trail.x, trail.y);
+            context.lineTo(position.x, position.y);
+            context.strokeStyle = gradient;
+            context.lineWidth = 2;
+            context.stroke();
+            context.beginPath();
+            context.arc(position.x, position.y, routeIndex === 0 ? 4 : 3, 0, Math.PI * 2);
+            context.fillStyle = route.color;
+            context.shadowColor = route.color;
+            context.shadowBlur = 18;
+            context.fill();
+            context.shadowBlur = 0;
+        });
+
+        // The central decision point breathes while small satellites relay signals.
+        const pulse = 1 + (reducedMotion ? 0 : Math.sin(seconds * 1.2) * 0.08);
+        const halo = context.createRadialGradient(cx, cy, 2, cx, cy, unit * 0.16 * pulse);
+        halo.addColorStop(0, 'rgba(217,242,123,.2)');
+        halo.addColorStop(1, 'rgba(217,242,123,0)');
+        context.fillStyle = halo;
+        context.beginPath(); context.arc(cx, cy, unit * 0.16 * pulse, 0, Math.PI * 2); context.fill();
+        context.beginPath(); context.arc(cx, cy, 16 * pulse, 0, Math.PI * 2);
+        context.fillStyle = '#d9f27b'; context.shadowColor = '#d9f27b'; context.shadowBlur = 34; context.fill(); context.shadowBlur = 0;
+        context.beginPath(); context.arc(cx, cy, 5, 0, Math.PI * 2); context.fillStyle = '#101e1c'; context.fill();
+
+        const satellites = [
+            { x: cx - unit * 0.27, y: cy - unit * 0.14, c: colors[1], t: 'CONTEXT' },
+            { x: cx + unit * 0.29, y: cy - unit * 0.08, c: colors[2], t: 'TOOLS' },
+            { x: cx + unit * 0.03, y: cy + unit * 0.23, c: colors[0], t: 'HUMAN IN LOOP' }
+        ];
+        satellites.forEach((satellite, index) => {
+            const wobble = reducedMotion ? 0 : Math.sin(seconds * 0.8 + index * 2) * 5;
+            const x = satellite.x + pointer.x * (index + 1) * 3;
+            const y = satellite.y + wobble + pointer.y * (index + 1) * 3;
+            context.beginPath(); context.moveTo(cx, cy); context.lineTo(x, y);
+            context.strokeStyle = 'rgba(217,242,123,.18)'; context.setLineDash([2, 5]); context.stroke(); context.setLineDash([]);
+            context.beginPath(); context.arc(x, y, 6, 0, Math.PI * 2);
+            context.fillStyle = satellite.c; context.shadowColor = satellite.c; context.shadowBlur = 14; context.fill(); context.shadowBlur = 0;
+            if (!compact) {
+                context.fillStyle = 'rgba(250,249,244,.55)';
+                context.font = '10px "DM Mono", monospace';
+                context.fillText(satellite.t, x + 13, y + 4);
             }
-            trail.geometry.attributes.position.needsUpdate = true;
-            trail.geometry.computeBoundingSphere();
         });
+
+        if (!reducedMotion && visible && !document.hidden) frame = requestAnimationFrame(draw);
     }
 
-    const clock = new THREE.Clock();
-    let sceneInView = true;
-    let animationFrameId = null;
-
-    function animate() {
-        animationFrameId = null;
-        if (document.hidden || !sceneInView) return;
-        const elapsed = clock.getElapsedTime();
-        updateDataPackets(elapsed);
-        if (reducedMotion) {
-            renderer.render(scene, camera);
-            return;
-        }
-        animationFrameId = requestAnimationFrame(animate);
-        moveAgent();
-        world.rotation.y += (targetRotationY - world.rotation.y) * 0.025;
-        world.rotation.x += (targetRotationX - world.rotation.x) * 0.025;
-        core.rotation.y = elapsed * 0.45;
-        coreRing.rotation.z = elapsed * 0.7;
-        nodes.forEach((node) => {
-            node.rotation.x = elapsed * 0.35 + node.userData.phase;
-            node.rotation.y = elapsed * 0.55 + node.userData.phase;
-            node.position.y = node.userData.baseY + Math.sin(elapsed * 1.4 + node.userData.phase) * 0.12;
-            node.userData.orbit.rotation.z = -elapsed * 0.7 - node.userData.phase;
-            node.userData.orbit.scale.setScalar(1 + Math.sin(elapsed * 2 + node.userData.phase) * 0.08);
-            node.material.emissiveIntensity = 0.22 + (Math.sin(elapsed * 2.2 + node.userData.phase) + 1) * 0.12;
-            node.userData.glow.scale.setScalar(3.1 + Math.sin(elapsed * 1.7 + node.userData.phase) * 0.22);
-        });
-        connections.forEach((line, index) => {
-            line.material.opacity = 0.58 + Math.sin(elapsed * 1.2 + index) * 0.12;
-        });
-        sparkField.rotation.y = elapsed * 0.035;
-        sparkField.rotation.x = Math.sin(elapsed * 0.12) * 0.035;
-        renderer.render(scene, camera);
+    function pause() {
+        if (frame !== null) cancelAnimationFrame(frame);
+        frame = null;
+    }
+    function resume() {
+        if (visible && !document.hidden && !reducedMotion && frame === null) frame = requestAnimationFrame(draw);
+        else if (reducedMotion) draw(performance.now());
     }
 
+    const onPointerMove = (event) => {
+        if (event.pointerType === 'touch') return;
+        const bounds = hero.getBoundingClientRect();
+        pointer.targetX = ((event.clientX - bounds.left) / bounds.width - 0.73) * 2;
+        pointer.targetY = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2;
+        pointer.x += (pointer.targetX - pointer.x) * 0.18;
+        pointer.y += (pointer.targetY - pointer.y) * 0.18;
+        if (reducedMotion) draw(performance.now());
+    };
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('resize', resize, { passive: true });
+    document.addEventListener('visibilitychange', () => document.hidden ? pause() : resume());
+    if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => {
+            visible = entry.isIntersecting;
+            visible ? resume() : pause();
+        }).observe(hero);
+    }
     resize();
-    window.addEventListener('resize', resize);
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden && animationFrameId !== null) {
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = null;
-        } else if (!document.hidden && sceneInView && animationFrameId === null) {
-            animate();
-        }
-    });
-    const sceneObserver = new IntersectionObserver(([entry]) => {
-        sceneInView = entry.isIntersecting;
-        if (sceneInView && !document.hidden && animationFrameId === null) {
-            animate();
-        } else if (animationFrameId !== null) {
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = null;
-        }
-    });
-    sceneObserver.observe(canvas);
-    animate();
+    resume();
 }
