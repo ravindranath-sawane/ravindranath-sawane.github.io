@@ -72,8 +72,8 @@ if (canvas && hero) {
             context.rotate(rotation);
             context.beginPath();
             context.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
-            context.strokeStyle = routeIndex === 0 ? 'rgba(217,242,123,.55)' : 'rgba(229,238,218,.17)';
-            context.lineWidth = routeIndex === 0 ? 1.2 : 0.8;
+            context.strokeStyle = routeIndex === 0 ? 'rgba(217,242,123,.96)' : 'rgba(229,238,218,.66)';
+            context.lineWidth = routeIndex === 0 ? 1.75 : 1.2;
             context.setLineDash(routeIndex === 2 ? [2, 9] : []);
             context.stroke();
             context.restore();
@@ -81,33 +81,24 @@ if (canvas && hero) {
             const angle = seconds * route.speed + route.phase * Math.PI * 2;
             const position = pointOnRoute(route, angle, cx, cy, rx, ry, rotation);
             const trail = pointOnRoute(route, angle - Math.sign(route.speed) * 0.14, cx, cy, rx, ry, rotation);
-            const gradient = context.createLinearGradient(trail.x, trail.y, position.x, position.y);
-            gradient.addColorStop(0, 'rgba(255,255,255,0)');
-            gradient.addColorStop(1, route.color);
             context.beginPath();
             context.moveTo(trail.x, trail.y);
             context.lineTo(position.x, position.y);
-            context.strokeStyle = gradient;
-            context.lineWidth = 2;
+            context.strokeStyle = route.color;
+            context.lineWidth = 2.5;
             context.stroke();
             context.beginPath();
             context.arc(position.x, position.y, routeIndex === 0 ? 4 : 3, 0, Math.PI * 2);
             context.fillStyle = route.color;
-            context.shadowColor = route.color;
-            context.shadowBlur = 18;
             context.fill();
-            context.shadowBlur = 0;
         });
 
-        // The central decision point breathes while small satellites relay signals.
+        // The central decision point pulses while small satellites relay signals.
         const pulse = 1 + (reducedMotion ? 0 : Math.sin(seconds * 1.2) * 0.08);
-        const halo = context.createRadialGradient(cx, cy, 2, cx, cy, unit * 0.16 * pulse);
-        halo.addColorStop(0, 'rgba(217,242,123,.2)');
-        halo.addColorStop(1, 'rgba(217,242,123,0)');
-        context.fillStyle = halo;
-        context.beginPath(); context.arc(cx, cy, unit * 0.16 * pulse, 0, Math.PI * 2); context.fill();
+        context.beginPath(); context.arc(cx, cy, 25 * pulse, 0, Math.PI * 2);
+        context.strokeStyle = 'rgba(217,242,123,.6)'; context.lineWidth = 1; context.stroke();
         context.beginPath(); context.arc(cx, cy, 16 * pulse, 0, Math.PI * 2);
-        context.fillStyle = '#d9f27b'; context.shadowColor = '#d9f27b'; context.shadowBlur = 34; context.fill(); context.shadowBlur = 0;
+        context.fillStyle = '#d9f27b'; context.fill();
         context.beginPath(); context.arc(cx, cy, 5, 0, Math.PI * 2); context.fillStyle = '#101e1c'; context.fill();
 
         const satellites = [
@@ -120,9 +111,9 @@ if (canvas && hero) {
             const x = satellite.x + pointer.x * (index + 1) * 3;
             const y = satellite.y + wobble + pointer.y * (index + 1) * 3;
             context.beginPath(); context.moveTo(cx, cy); context.lineTo(x, y);
-            context.strokeStyle = 'rgba(217,242,123,.18)'; context.setLineDash([2, 5]); context.stroke(); context.setLineDash([]);
+            context.strokeStyle = 'rgba(217,242,123,.42)'; context.setLineDash([3, 5]); context.stroke(); context.setLineDash([]);
             context.beginPath(); context.arc(x, y, 6, 0, Math.PI * 2);
-            context.fillStyle = satellite.c; context.shadowColor = satellite.c; context.shadowBlur = 14; context.fill(); context.shadowBlur = 0;
+            context.fillStyle = satellite.c; context.fill();
             if (!compact) {
                 context.fillStyle = 'rgba(250,249,244,.55)';
                 context.font = '10px "DM Mono", monospace';
