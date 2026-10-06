@@ -1,161 +1,103 @@
-const root = document.documentElement;
-const header = document.getElementById('siteHeader');
-const menuToggle = document.getElementById('menuToggle');
-const siteNav = document.getElementById('siteNav');
-const progress = document.getElementById('scrollProgress');
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const hasGSAP = Boolean(window.gsap && window.ScrollTrigger && window.MotionPathPlugin);
+(() => {
+  const tabs = [...document.querySelectorAll('[role="tab"][data-project]')];
+  const panels = [...document.querySelectorAll('[role="tabpanel"]')];
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) document.querySelectorAll('svg').forEach((svg) => svg.pauseAnimations?.());
 
-root.classList.toggle('no-gsap', !hasGSAP);
-root.classList.toggle('reduced-motion', reduceMotion);
+  function selectProject(tab, moveFocus = false) {
+    const panel = document.getElementById(tab.getAttribute('aria-controls'));
+    if (!panel || tab.getAttribute('aria-selected') === 'true') {
+      if (moveFocus) tab.focus();
+      return;
+    }
 
-function closeMenu() {
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Open navigation');
-    siteNav.classList.remove('is-open');
-}
+    tabs.forEach((item) => {
+      const selected = item === tab;
+      item.setAttribute('aria-selected', String(selected));
+      item.tabIndex = selected ? 0 : -1;
+      item.classList.toggle('is-active', selected);
+    });
+    panels.forEach((item) => {
+      const selected = item === panel;
+      item.hidden = !selected;
+      item.classList.toggle('is-active', selected);
+    });
 
-menuToggle.addEventListener('click', () => {
-    const open = menuToggle.getAttribute('aria-expanded') !== 'true';
+    if (moveFocus) tab.focus();
+    if (!reducedMotion && window.gsap) {
+      window.gsap.fromTo(panel.querySelector('.project-visual'),
+        { clipPath: 'inset(0 0 0 8%)', opacity: .45 },
+        { clipPath: 'inset(0 0 0 0)', opacity: 1, duration: .55, ease: 'power3.out' });
+      window.gsap.fromTo(panel.querySelector('.project-copy'),
+        { y: 12, opacity: .4 },
+        { y: 0, opacity: 1, duration: .45, delay: .06, ease: 'power2.out' });
+    }
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => selectProject(tab));
+    tab.addEventListener('keydown', (event) => {
+      const nextKeys = ['ArrowDown', 'ArrowRight'];
+      const previousKeys = ['ArrowUp', 'ArrowLeft'];
+      let targetIndex = index;
+      if (nextKeys.includes(event.key)) targetIndex = (index + 1) % tabs.length;
+      else if (previousKeys.includes(event.key)) targetIndex = (index - 1 + tabs.length) % tabs.length;
+      else if (event.key === 'Home') targetIndex = 0;
+      else if (event.key === 'End') targetIndex = tabs.length - 1;
+      else return;
+      event.preventDefault();
+      selectProject(tabs[targetIndex], true);
+    });
+  });
+
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  function setMenu(open) {
+    if (!menuToggle || !mobileNav) return;
     menuToggle.setAttribute('aria-expanded', String(open));
     menuToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-    siteNav.classList.toggle('is-open', open);
-});
-siteNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
-        closeMenu();
-        menuToggle.focus();
+    mobileNav.hidden = !open;
+    document.body.classList.toggle('menu-open', open);
+  }
+  menuToggle?.addEventListener('click', () => setMenu(menuToggle.getAttribute('aria-expanded') !== 'true'));
+  mobileNav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setMenu(false); });
+
+  document.getElementById('year').textContent = String(new Date().getFullYear());
+  const progress = document.getElementById('readProgress');
+  let scheduled = false;
+  function updateProgress() {
+    scheduled = false;
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const amount = scrollable > 0 ? window.scrollY / scrollable : 0;
+    progress.style.transform = `scaleX(${Math.max(0, Math.min(1, amount))})`;
+  }
+  window.addEventListener('scroll', () => {
+    if (!scheduled) {
+      scheduled = true;
+      window.requestAnimationFrame(updateProgress);
     }
-});
-window.matchMedia('(min-width: 761px)').addEventListener('change', closeMenu);
+  }, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
 
-let queued = false;
-function updateHeader() {
-    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const amount = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-    progress.style.width = `${Math.max(0, Math.min(1, amount)) * 100}%`;
-    header.classList.toggle('is-scrolled', window.scrollY > 24);
-    queued = false;
-}
-window.addEventListener('scroll', () => {
-    if (queued) return;
-    queued = true;
-    window.requestAnimationFrame(updateHeader);
-}, { passive: true });
-window.addEventListener('resize', updateHeader, { passive: true });
-updateHeader();
+  if (window.gsap && !reducedMotion) {
+    if (window.ScrollTrigger) window.gsap.registerPlugin(window.ScrollTrigger);
+    window.gsap.from('.hero-copy > *', { y: 24, opacity: 0, duration: .75, stagger: .1, ease: 'power3.out', delay: .12 });
+    window.gsap.from('.hero-art', { y: 18, opacity: 0, rotate: 2.2, duration: .95, ease: 'power3.out', delay: .28 });
 
-if (!hasGSAP || reduceMotion) {
-    // Native scroll and the complete project stack remain available without motion.
-} else {
-    const { gsap } = window;
-    const { ScrollTrigger, MotionPathPlugin } = window;
-    gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
-    root.classList.add('motion-ready');
-
-    const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    intro.from('.hero-eyebrow', { y: 16, autoAlpha: 0, duration: .7 })
-        .from('.title-word', { yPercent: 115, rotate: 4, duration: 1.15, stagger: .15 }, '-=.38')
-        .from('.hero-intro', { y: 20, autoAlpha: 0, duration: .7 }, '-=.48')
-        .from('.hero-cta', { y: 15, autoAlpha: 0, duration: .55 }, '-=.38')
-        .from('.art-label, .art-caption, .art-coordinates', { autoAlpha: 0, duration: .6, stagger: .1 }, '-=.7');
-
-    gsap.to('.art-orbit--a', { rotate: 360, transformOrigin: '50% 50%', duration: 80, repeat: -1, ease: 'none' });
-    gsap.to('.art-orbit--b', { rotate: -360, transformOrigin: '50% 50%', duration: 105, repeat: -1, ease: 'none' });
-    gsap.to('.art-orbit--dots', { rotate: 360, transformOrigin: '50% 50%', duration: 22, repeat: -1, ease: 'none' });
-    gsap.to('.data-packet--one', { motionPath: { path: '.art-wire path:first-child', align: '.art-wire path:first-child', alignOrigin: [.5,.5], autoRotate: true }, duration: 5, repeat: -1, ease: 'none' });
-    gsap.to('.data-packet--two', { motionPath: { path: '.art-wire path:last-child', align: '.art-wire path:last-child', alignOrigin: [.5,.5], autoRotate: true }, duration: 7, repeat: -1, ease: 'none', delay: -3 });
-    gsap.to('.art-core', { scale: 1.045, transformOrigin: '50% 50%', duration: 2.8, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-    gsap.to('.ticker-track', { xPercent: -50, repeat: -1, duration: 27, ease: 'none' });
-    gsap.to('.contact-orbit', { rotate: 360, duration: 44, repeat: -1, ease: 'none' });
-    gsap.to('.jira-spark', { rotate: 90, scale: 1.25, duration: 1.8, repeat: -1, yoyo: true, stagger: .7, ease: 'sine.inOut' });
-    gsap.to('.rag-particle', { x: 45, duration: 1.6, repeat: -1, yoyo: true, stagger: .6, ease: 'sine.inOut' });
-    gsap.to('.flow-dot', { x: 48, duration: 1.8, repeat: -1, yoyo: true, stagger: .9, ease: 'sine.inOut' });
-    gsap.to('.gaze-target', { scale: 1.13, duration: 1.5, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-
-    gsap.utils.toArray('[data-reveal]').forEach((element) => {
-        gsap.fromTo(element, { y: 28, autoAlpha: 0 }, {
-            y: 0, autoAlpha: 1, duration: .8, ease: 'power2.out',
-            scrollTrigger: { trigger: element, start: 'top 88%', once: true }
+    if (window.ScrollTrigger) {
+      const revealTargets = document.querySelectorAll('.section-heading, .workbench, .approach-head, .approach-main > *, .about-label, .about-copy, .contact-body');
+      revealTargets.forEach((element) => {
+        window.gsap.from(element, {
+          y: 24,
+          opacity: 0,
+          duration: .8,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: element, start: 'top 88%', once: true }
         });
-    });
-
-    gsap.matchMedia().add('(min-width: 1100px)', () => {
-        const stage = document.getElementById('projectStage');
-        const track = document.getElementById('projectTrack');
-        const panels = gsap.utils.toArray('.project-panel');
-        const active = document.getElementById('activeProject');
-        const trackDistance = () => Math.max(0, track.scrollWidth - stage.clientWidth);
-
-        gsap.to(track, {
-            x: () => -trackDistance(),
-            ease: 'none',
-            scrollTrigger: {
-                trigger: stage,
-                start: 'top top',
-                end: () => `+=${trackDistance()}`,
-                pin: true,
-                scrub: .8,
-                invalidateOnRefresh: true,
-                onUpdate: (self) => {
-                    const viewportCenter = window.innerWidth / 2;
-                    let index = 0;
-                    let closestDistance = Infinity;
-                    panels.forEach((panel, candidateIndex) => {
-                        const bounds = panel.getBoundingClientRect();
-                        const distance = Math.abs(bounds.left + bounds.width / 2 - viewportCenter);
-                        if (distance < closestDistance) {
-                            closestDistance = distance;
-                            index = candidateIndex;
-                        }
-                    });
-                    active.textContent = String(index + 1).padStart(2, '0');
-                }
-            }
-        });
-        panels.forEach((panel, index) => {
-            gsap.from(panel.querySelector('.panel-art'), {
-                clipPath: 'inset(8% 5% 8% 5%)',
-                scale: .94,
-                duration: .32,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: stage,
-                    start: () => `top+=${index * trackDistance() / panels.length} top`,
-                    end: () => `top+=${(index + 1) * trackDistance() / panels.length} top`,
-                    scrub: .5
-                }
-            });
-        });
-    });
-
-    const heroArt = document.getElementById('heroArt');
-    const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-    if (!coarsePointer) {
-        const moveArt = gsap.quickTo(heroArt, 'rotationY', { duration: .7, ease: 'power3.out' });
-        const moveTilt = gsap.quickTo(heroArt, 'rotationX', { duration: .7, ease: 'power3.out' });
-        document.querySelector('.hero').addEventListener('pointermove', (event) => {
-            const bounds = heroArt.getBoundingClientRect();
-            moveArt(((event.clientX - bounds.left) / bounds.width - .5) * 9);
-            moveTilt(-((event.clientY - bounds.top) / bounds.height - .5) * 7);
-        }, { passive: true });
-        document.querySelector('.hero').addEventListener('pointerleave', () => {
-            moveArt(0);
-            moveTilt(0);
-        });
+      });
+      window.ScrollTrigger.refresh();
     }
-
-    document.querySelectorAll('.project-panel').forEach((panel) => {
-        panel.addEventListener('pointermove', (event) => {
-            if (window.matchMedia('(pointer: coarse)').matches) return;
-            const box = panel.getBoundingClientRect();
-            const x = (event.clientX - box.left) / box.width - .5;
-            const y = (event.clientY - box.top) / box.height - .5;
-            gsap.to(panel.querySelector('.panel-art'), { x: x * 9, y: y * 7, duration: .5, overwrite: true, ease: 'power2.out' });
-        });
-        panel.addEventListener('pointerleave', () => {
-            gsap.to(panel.querySelector('.panel-art'), { x: 0, y: 0, duration: .65, ease: 'elastic.out(1,.7)' });
-        });
-    });
-}
+  }
+})();
