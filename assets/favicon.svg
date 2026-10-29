@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <circle cx="32" cy="32" r="30" fill="#20221e" />
+  <circle cx="32" cy="32" r="28.5" fill="none" stroke="#c8c6bb" stroke-opacity="0.22" stroke-width="1" />
+  <text x="30" y="40" text-anchor="middle" fill="#f1eee6" font-family="Georgia, 'Times New Roman', Times, serif" font-style="italic" style="font-style: italic" font-size="30">rs</text>
+  <text x="48" y="21" text-anchor="middle" fill="#d8e766" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700">↗</text>
+</svg>

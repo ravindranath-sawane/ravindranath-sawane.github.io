@@ -3,10 +3,84 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f1eee6">
-  <meta name="description" content="Ravindranath Sawane builds useful AI systems, developer tools, and applied machine learning. Toronto, Canada.">
+  <meta name="theme-color" content="#f1eee6" id="themeColorMeta">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem('rs-theme');
+        const dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (dark) {
+          document.documentElement.dataset.theme = 'dark';
+          const meta = document.getElementById('themeColorMeta');
+          if (meta) meta.setAttribute('content', '#121512');
+        }
+      } catch {}
+    })();
+  </script>
+  <meta name="description" content="Ravindranath Sawane — Software Developer I, AI Innovation at Kinaxis. Building production agentic AI platforms, grounded RAG systems, MCP tool orchestration, and applied machine learning in Toronto, Canada.">
   <meta name="author" content="Ravindranath Sawane">
   <title>Ravindranath Sawane — Useful intelligence, engineered.</title>
+
+  <link rel="canonical" href="https://ravindranath-sawane.github.io/">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Open Graph / LinkedIn / Slack -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ravindranath-sawane.github.io/">
+  <meta property="og:site_name" content="Ravindranath Sawane">
+  <meta property="og:title" content="Ravindranath Sawane — Useful intelligence, engineered.">
+  <meta property="og:description" content="Software Developer I, AI Innovation at Kinaxis. Production agentic workflows, source-grounded RAG, MCP/A2A orchestration, and applied ML research.">
+  <meta property="og:image" content="https://ravindranath-sawane.github.io/assets/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Ravindranath Sawane — I build AI for the messy middle.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ravindranath Sawane — Useful intelligence, engineered.">
+  <meta name="twitter:description" content="Software Developer I, AI Innovation at Kinaxis. Production agentic workflows, source-grounded RAG, MCP/A2A orchestration, and applied ML.">
+  <meta name="twitter:image" content="https://ravindranath-sawane.github.io/assets/og-card.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ravindranath Sawane",
+      "url": "https://ravindranath-sawane.github.io/",
+      "image": "https://ravindranath-sawane.github.io/assets/og-card.png",
+      "jobTitle": "Software Developer I, AI Innovation",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Kinaxis",
+        "url": "https://www.kinaxis.com/"
+      },
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Western University"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Rashtrasant Tukadoji Maharaj Nagpur University"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Toronto",
+        "addressRegion": "ON",
+        "addressCountry": "CA"
+      },
+      "email": "mailto:ravisawane9@gmail.com",
+      "sameAs": [
+        "https://github.com/ravindranath-sawane",
+        "https://github.com/rsawane-kxs",
+        "https://www.linkedin.com/in/ravindranath-sawane/",
+        "https://scholar.google.ca/citations?user=m-A0ZYgAAAAJ&hl=en"
+      ]
+    }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -17,42 +91,79 @@
   <div class="page-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <div class="read-progress" aria-hidden="true"><span id="readProgress"></span></div>
 
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="Ravindranath Sawane, home"><span class="brand-mark">rs<span>↗</span></span><span class="brand-name">Ravindranath<br>Sawane</span></a>
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#top" aria-label="Ravindranath Sawane, home">
+      <span class="brand-mark">rs<span>↗</span></span>
+      <span class="brand-name">Ravindranath<br>Sawane</span>
+    </a>
     <nav class="main-nav" aria-label="Main navigation">
-      <a href="#work">Work <sup>04</sup></a>
-      <a href="#experience">Experience</a>
-      <a href="#about">About</a>
+      <a href="#experience" data-nav="experience">Experience</a>
+      <a href="#work" data-nav="work">Work <sup>04</sup></a>
+      <a href="#approach" data-nav="approach">Principles</a>
+      <a href="#about" data-nav="about">About</a>
     </nav>
-    <a class="header-contact" href="mailto:ravisawane9@gmail.com">Let’s talk <span>↗</span></a>
-    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Open navigation"><span></span><span></span></button>
+    <div class="header-actions">
+      <a class="header-gh mono" href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile (@ravindranath-sawane)">GITHUB <span>↗</span></a>
+      <button class="theme-toggle mono" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+        <span class="theme-dot" aria-hidden="true"></span>
+        <span class="theme-label" data-theme-label>NIGHT</span>
+      </button>
+      <a class="header-contact" href="#contact">Let’s talk <span>↗</span></a>
+    </div>
+    <div class="mobile-controls">
+      <button class="theme-toggle theme-toggle--mobile mono" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+        <span class="theme-dot" aria-hidden="true"></span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Open navigation"><span></span><span></span></button>
+    </div>
   </header>
+
   <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" hidden>
-    <a href="#work">Selected work <span>01—04</span></a><a href="#experience">Current experience <span>NOW</span></a><a href="#about">About <span>04</span></a><a href="mailto:ravisawane9@gmail.com">Say hello <span>↗</span></a>
+    <a href="#experience">Current experience <span>NOW</span></a>
+    <a href="#work">Selected work <span>01—04</span></a>
+    <a href="#approach">Design principles <span>03</span></a>
+    <a href="#about">About <span>04</span></a>
+    <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
+    <a href="https://scholar.google.ca/citations?user=m-A0ZYgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google Scholar <span>↗</span></a>
+    <a href="#contact">Say hello <span>↗</span></a>
   </nav>
 
   <main id="main">
     <section class="hero" id="top" aria-labelledby="heroTitle">
-      <div class="hero-meta mono"><span><i class="live-dot"></i> TORONTO, CANADA</span><span>43° 39′ N &nbsp; / &nbsp; 79° 23′ W</span></div>
+      <div class="hero-meta mono">
+        <span><i class="live-dot"></i> TORONTO, CANADA <b class="local-clock" id="torontoClock"></b></span>
+        <span>43° 39′ N &nbsp; / &nbsp; 79° 23′ W</span>
+      </div>
       <div class="hero-grid">
         <div class="hero-copy">
           <p class="eyebrow"><span class="eyebrow-rule"></span> AI ENGINEER &nbsp;·&nbsp; SYSTEMS THINKER</p>
           <h1 id="heroTitle">I build AI for<br>the <em>messy middle.</em></h1>
           <p class="hero-deck">When a good idea meets real work—tools, context, handoffs, edge cases—I build the system that gets it through.</p>
-          <div class="hero-actions"><a class="button button-dark" href="#work">See what I’ve built <span>↓</span></a><a class="text-link" href="#about">A little about me <span>↗</span></a></div>
+          <div class="hero-actions">
+            <a class="button button-dark" href="#work">See what I’ve built <span>↓</span></a>
+            <a class="text-link" href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
+            <a class="text-link" href="#about">About me <span>↗</span></a>
+          </div>
         </div>
         <div class="hero-art" id="heroArt" role="img" aria-label="A working diagram of an AI engineering workflow">
           <div class="art-topline mono"><span>FIELD STUDY&nbsp; 001</span><span>FROM INTENT TO SOFTWARE</span></div>
           <div class="workflow-shell">
-            <div class="workflow-track" aria-hidden="true"><svg viewBox="0 0 640 220" preserveAspectRatio="none"><path class="workflow-path" d="M75 114 H227 C260 114 260 70 294 70 H410 C446 70 446 155 482 155 H572"/><path class="workflow-path workflow-path--fine" d="M75 122 H224 C254 122 255 78 294 78 H408 C438 78 440 163 482 163 H572"/><circle class="workflow-runner" r="5"><animateMotion dur="5.8s" repeatCount="indefinite" path="M75 114 H227 C260 114 260 70 294 70 H410 C446 70 446 155 482 155 H572"/></circle></svg></div>
-              <div class="workflow-nodes">
-                <div class="workflow-node workflow-node--request"><span class="node-number mono">01 / INPUT</span><div class="node-glyph glyph-prompt"><i></i><i></i><i></i></div><strong>Intent</strong><small>human request</small></div>
-                <div class="workflow-node workflow-node--agent"><span class="node-number mono">02 / REASON</span><div class="node-glyph glyph-agent"><i>↗</i><i>↘</i><i>·</i></div><strong>Agent loop</strong><small>plan · act · check</small></div>
-                <div class="workflow-node workflow-node--tools"><span class="node-number mono">03 / USE</span><div class="node-glyph glyph-tool"><i></i><b>+</b><i></i></div><strong>Real tools</strong><small>context · action</small></div>
-                <div class="workflow-node workflow-node--result"><span class="node-number mono">04 / VERIFY</span><div class="node-glyph glyph-result"><i>✓</i></div><strong>Useful change</strong><small>reviewable output</small></div>
-              </div>
-              <div class="workflow-human"><span class="human-symbol">↳</span><span>HUMAN CHECKPOINT</span><i></i></div>
+            <div class="workflow-track" aria-hidden="true">
+              <svg viewBox="0 0 640 220" preserveAspectRatio="none">
+                <path class="workflow-path" d="M75 114 H227 C260 114 260 70 294 70 H410 C446 70 446 155 482 155 H572"/>
+                <path class="workflow-path workflow-path--fine" d="M75 122 H224 C254 122 255 78 294 78 H408 C438 78 440 163 482 163 H572"/>
+                <circle class="workflow-runner" r="5">
+                  <animateMotion dur="5.8s" repeatCount="indefinite" path="M75 114 H227 C260 114 260 70 294 70 H410 C446 70 446 155 482 155 H572"/>
+                </circle>
+              </svg>
             </div>
+            <div class="workflow-nodes">
+              <div class="workflow-node workflow-node--request"><span class="node-number mono">01 / INPUT</span><div class="node-glyph glyph-prompt"><i></i><i></i><i></i></div><strong>Intent</strong><small>human request</small></div>
+              <div class="workflow-node workflow-node--agent"><span class="node-number mono">02 / REASON</span><div class="node-glyph glyph-agent"><i>↗</i><i>↘</i><i>·</i></div><strong>Agent loop</strong><small>plan · act · check</small></div>
+              <div class="workflow-node workflow-node--tools"><span class="node-number mono">03 / USE</span><div class="node-glyph glyph-tool"><i></i><b>+</b><i></i></div><strong>Real tools</strong><small>context · action</small></div>
+              <div class="workflow-node workflow-node--result"><span class="node-number mono">04 / VERIFY</span><div class="node-glyph glyph-result"><i>✓</i></div><strong>Useful change</strong><small>reviewable output</small></div>
+            </div>
+            <div class="workflow-human"><span class="human-symbol">↳</span><span>HUMAN CHECKPOINT</span><i></i></div>
           </div>
           <div class="art-bottomline mono"><span>THE PROMPT IS THE STARTING POINT.</span><span>NOT THE PRODUCT.</span></div>
           <span class="art-index mono">FIG. 01</span>
@@ -83,17 +194,28 @@
 
     <section class="history-section" id="history" aria-labelledby="historyTitle">
       <div class="history-heading">
-        <div class="history-title"><p class="eyebrow"><span class="section-index">01</span> EXPERIENCE / 2022—NOW</p><h2 id="historyTitle">From research<br>to <em>production.</em></h2><p class="history-intro">A continuous thread: make intelligent systems useful outside the lab.</p></div>
+        <div class="history-title">
+          <p class="eyebrow"><span class="section-index">01</span> EXPERIENCE / 2022—NOW</p>
+          <h2 id="historyTitle">From research<br>to <em>production.</em></h2>
+          <p class="history-intro">A continuous thread: make intelligent systems useful outside the lab.</p>
+        </div>
         <div class="experience-total"><strong>~4</strong><div><span>YEARS COMBINED</span><b>AI · SOFTWARE · RESEARCH</b><small>Includes internships and academic research appointments.</small></div></div>
       </div>
       <div class="history-entries" aria-label="Earlier experience">
         <article class="history-entry"><p class="history-date mono">APR 2026<br>— AUG 2026</p><div class="history-role"><h3>Software Developer I, AI Solutions</h3><p>Kinaxis <span>·</span> Toronto, ON</p></div><p class="history-outcome">Built multi-agent orchestration, secure MCP tools, and an NL-to-MQL workflow for supply-chain queries.</p><span class="history-index mono">01</span></article>
         <article class="history-entry"><p class="history-date mono">SEP 2025<br>— APR 2026</p><div class="history-role"><h3>Intern Developer, AI Solutions</h3><p>Kinaxis <span>·</span> Toronto, ON</p></div><p class="history-outcome">Improved natural-language-to-MQL accuracy to <b>84%</b> with Gemini 2.5 Pro; built agentic workflows for Kinaxis Maestro.</p><span class="history-index mono">02</span></article>
-        <article class="history-entry"><p class="history-date mono">SEP 2023<br>— AUG 2025</p><div class="history-role"><h3>Graduate Research &amp; Teaching Assistant</h3><p>Western University <span>·</span> London, ON</p></div><p class="history-outcome">Researched gaze-aware lane-change prediction with object detection and LSTM, GRU, and TCN sequence models.</p><span class="history-index mono">03</span></article>
-        <article class="history-entry"><p class="history-date mono">JAN 2023<br>— JUL 2023</p><div class="history-role"><h3>Artificial Intelligence Research Assistant</h3><p>IGDM Lab, University of Calgary <span>·</span> Remote</p></div><p class="history-outcome">Implemented graph-based traffic forecasting and an interactive visualization of road-network patterns.</p><span class="history-index mono">04</span></article>
-        <article class="history-entry"><p class="history-date mono">JUL 2022<br>— SEP 2022</p><div class="history-role"><h3>Globalink Research Intern</h3><p>MITACS / IGDM Lab, University of Calgary</p></div><p class="history-outcome">Applied forecasting models to parcel demand, driver behavior, and speed for regional delivery-network optimization.</p><span class="history-index mono">05</span></article>
+        <article class="history-entry"><p class="history-date mono">SEP 2023<br>— AUG 2025</p><div class="history-role"><h3>Graduate Research &amp; Teaching Assistant</h3><p>Western University <span>·</span> London, ON</p></div><p class="history-outcome">Completed M.Sc. in Computer Science (AI, <b>3.9/4.0 GPA</b>); researched gaze-aware lane-change prediction with YOLO, LSTM, GRU, and TCN models.</p><span class="history-index mono">03</span></article>
+        <article class="history-entry"><p class="history-date mono">JAN 2023<br>— JUL 2023</p><div class="history-role"><h3>Artificial Intelligence Research Assistant</h3><p>IGDM Lab, University of Calgary <span>·</span> Remote</p></div><p class="history-outcome">Implemented ASTGCN graph-based traffic forecasting and interactive geospatial road-network visualizations.</p><span class="history-index mono">04</span></article>
+        <article class="history-entry"><p class="history-date mono">JUL 2022<br>— SEP 2022</p><div class="history-role"><h3>Globalink Research Intern</h3><p>MITACS / IGDM Lab, University of Calgary</p></div><p class="history-outcome">Applied time-series forecasting models to parcel demand, driver behavior, and speed for regional delivery-network optimization.</p><span class="history-index mono">05</span></article>
       </div>
-      <div class="history-foot mono"><span>CURRENT ROLE: SOFTWARE DEVELOPER I / AI INNOVATION, KINAXIS</span><a href="https://www.linkedin.com/in/ravindranath-sawane/" target="_blank" rel="noopener noreferrer">FULL CAREER DETAILS ON LINKEDIN <b>↗</b></a></div>
+      <div class="history-foot mono">
+        <span>CURRENT ROLE: SOFTWARE DEVELOPER I / AI INNOVATION, KINAXIS</span>
+        <div class="history-links">
+          <a href="https://github.com/rsawane-kxs" target="_blank" rel="noopener noreferrer">WORK GITHUB (@RSAWANE-KXS) <b>↗</b></a>
+          <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer">OPEN-SOURCE GITHUB <b>↗</b></a>
+          <a href="https://www.linkedin.com/in/ravindranath-sawane/" target="_blank" rel="noopener noreferrer">LINKEDIN <b>↗</b></a>
+        </div>
+      </div>
     </section>
 
     <section class="work-section" id="work" aria-labelledby="workTitle">
@@ -109,7 +231,7 @@
           <button class="project-tab" id="tab-kinara" role="tab" aria-selected="false" aria-controls="panel-kinara" tabindex="-1" data-project="kinara"><span class="tab-no mono">02</span><span class="tab-title">Kinara RAG</span><span class="tab-sub">Grounded answers</span><span class="tab-arrow">↗</span></button>
           <button class="project-tab" id="tab-jiraxis" role="tab" aria-selected="false" aria-controls="panel-jiraxis" tabindex="-1" data-project="jiraxis"><span class="tab-no mono">03</span><span class="tab-title">JIRAXIS AI</span><span class="tab-sub">Agents that take action</span><span class="tab-arrow">↗</span></button>
           <button class="project-tab" id="tab-research" role="tab" aria-selected="false" aria-controls="panel-research" tabindex="-1" data-project="research"><span class="tab-no mono">04</span><span class="tab-title">Eyes on the road</span><span class="tab-sub">Driver-maneuver research</span><span class="tab-arrow">↗</span></button>
-          <p class="index-foot mono">USE THE ARROW KEYS<br>OR PICK A PROJECT</p>
+          <p class="index-foot mono">USE THE ARROW KEYS<br>OR SHARE A DIRECT LINK</p>
         </div>
 
         <div class="project-panels">
@@ -117,40 +239,126 @@
             <div class="project-visual visual-devx" role="img" aria-label="Diagram of the developer workflow: request, plan, implementation, review">
               <div class="visual-note mono"><span>DEVX / AGENTIC FRAMEWORK</span><span class="visual-status"><i></i> IN THE LOOP</span></div>
               <div class="devx-window"><div class="window-head"><span>WORK ITEM / 08:42</span><div><i></i><i></i><i></i></div></div><div class="devx-request"><span class="mono">DEVELOPER INTENT</span><p>“Add a validation step before<br>the workflow creates a change.”</p><span class="request-mark">↗</span></div><div class="devx-flow"><div class="devx-step"><i>01</i><b>Intake</b><small>understand</small></div><span class="step-arrow">→</span><div class="devx-step active"><i>02</i><b>Plan</b><small>break it down</small></div><span class="step-arrow">→</span><div class="devx-step"><i>03</i><b>Build</b><small>make the change</small></div><span class="step-arrow">→</span><div class="devx-step"><i>04</i><b>Review</b><small>human checkpoint</small></div></div><div class="devx-log mono"><span><b>✓</b> CONTEXT GATHERED</span><span><b>↗</b> PLAN READY FOR REVIEW</span><span class="log-blink">▌</span></div></div>
-              <div class="visual-caption"><span>INTENT → WORKING CHANGE</span><span>PROCESS MAP / 01</span></div>
+              <div class="visual-caption mono"><span>INTENT → WORKING CHANGE</span><span>PROCESS MAP / 01</span></div>
               <span class="visual-stamp">−30<small>%</small></span>
             </div>
-            <div class="project-copy"><div class="project-topline mono"><span>CASE 01 / DEVELOPER TOOLS</span><span>KINAXIS</span></div><h3>KXS <em>DevX</em></h3><p class="project-lead">Shorten the distance between “I need this” and a working change.</p><p class="project-body">An agentic framework that moves a software task through intake, planning, implementation, and review. Designed around the actual work developers do—not a chat window bolted onto it.</p><div class="project-facts"><div><span class="mono">MY FOCUS</span><b>Agentic workflow design</b></div><div><span class="mono">MEASURED IMPACT</span><b>30% shorter development lifecycle</b></div></div><div class="project-bottom mono"><span>HUMAN REVIEW STAYS IN THE LOOP</span><span>01 / 04</span></div></div>
+            <div class="project-copy"><div class="project-topline mono"><span>CASE 01 / DEVELOPER TOOLS</span><span>KINAXIS</span></div><h3>KXS <em>DevX</em></h3><p class="project-lead">Shorten the distance between “I need this” and a working change.</p><p class="project-body">An agentic framework that moves a software task through intake, planning, implementation, and review. Designed around the actual work developers do—not a chat window bolted onto it.</p><div class="project-facts"><div><span class="mono">MY FOCUS</span><b>Agentic workflow design</b></div><div><span class="mono">MEASURED IMPACT</span><b>30% shorter development lifecycle</b></div></div><div class="project-bottom mono"><span>HUMAN REVIEW STAYS IN THE LOOP</span><button class="share-case mono" type="button" data-share-project="devx">SHARE 01 / 04 ↗</button></div></div>
           </article>
 
           <article class="project-panel" id="panel-kinara" role="tabpanel" aria-labelledby="tab-kinara" tabindex="0" hidden>
             <div class="project-visual visual-kinara" role="img" aria-label="Illustration of source documents flowing through retrieval into a cited answer">
               <div class="visual-note mono"><span>MAESTRO / KNOWLEDGE RETRIEVAL</span><span class="visual-status"><i></i> IN DEVELOPMENT</span></div>
-              <div class="kinara-layout"><div class="source-sheets"><div class="source-sheet sheet-back"><i>PLANNING / DATA</i><b></b><b></b><b></b><span class="mono">SOURCE 02</span></div><div class="source-sheet"><i>MAESTRO / GUIDE</i><b></b><b></b><b></b><b></b><span class="mono">SOURCE 01</span></div><div class="sheet-tag mono">PARENT DOCUMENT</div></div><div class="retrieve-line"><svg viewBox="0 0 160 70"><path d="M4 35h145"/><path d="m137 23 13 12-13 12"/><circle r="4"><animateMotion dur="2.6s" repeatCount="indefinite" path="M4 35h145"/></circle></svg><span class="mono">RETRIEVE</span></div><div class="retrieval-core"><div class="core-ring core-ring-one"></div><div class="core-ring core-ring-two"></div><div class="core-label">RAG</div><span class="mono">CONTEXT</span></div><div class="retrieve-line retrieve-line-out"><svg viewBox="0 0 160 70"><path d="M4 35h145"/><path d="m137 23 13 12-13 12"/><circle r="4"><animateMotion dur="3s" repeatCount="indefinite" path="M4 35h145"/></circle></svg><span class="mono">GENERATE</span></div><div class="answer-card"><div class="answer-head mono"><i></i> RESPONSE</div><p>“Here’s the plan change…”</p><div class="citation"><span>↳</span><b>Source: Planning Guide, p. 12</b></div><div class="answer-foot mono">GROUNDED IN THE SOURCE</div></div></div>
-              <div class="visual-caption"><span>SOURCE → CONTEXT → ANSWER</span><span>RETRIEVAL MAP / 02</span></div><span class="visual-stamp stamp-word">CITE<br><small>THE SOURCE</small></span>
+              <div class="kinara-layout"><div class="source-sheets"><div class="source-sheet sheet-back"><i>PLANNING / DATA</i><b></b><b></b><b></b><span class="mono">SOURCE 02</span></div><div class="source-sheet"><i>MAESTRO / GUIDE</i><b></b><b></b><b></b><b></b><span class="mono">SOURCE 01</span></div><div class="sheet-tag mono">PARENT DOCUMENT</div></div><div class="retrieve-line"><svg viewBox="0 0 160 70"><path d="M4 35h145"/><path d="m137 23 13 12-13 12"/><circle r="4"><animateMotion dur="2.6s" repeatCount="indefinite" path="M4 35h145"/></circle></svg><span class="mono">RETRIEVE</span></div><div class="retrieval-core"><div class="core-ring core-ring-one"></div><div class="core-ring core-ring-two"></div><div class="core-label">RAG</div><span class="mono">CONTEXT</span></div><div class="retrieve-line retrieve-line-out"><svg viewBox="0 0 160 70"><path d="M4 35h145"/><path d="m137 23 13 12-13 12"/><circle r="4"><animateMotion dur="3s" repeatCount="indefinite" path="M4 35h145"/></circle></svg><span class="mono">GENERATE</span></div><div class="answer-card"><div class="answer-head mono"><i></i> RESPONSE</div><p>“Here’s the plan change…”</p><div class="citation mono"><span>↳</span><b>Source: Planning Guide, p. 12</b></div><div class="answer-foot mono">GROUNDED IN THE SOURCE</div></div></div>
+              <div class="visual-caption mono"><span>SOURCE → CONTEXT → ANSWER</span><span>RETRIEVAL MAP / 02</span></div><span class="visual-stamp stamp-word">CITE<br><small>THE SOURCE</small></span>
             </div>
-            <div class="project-copy"><div class="project-topline mono"><span>CASE 02 / ENTERPRISE AI</span><span>IN DEVELOPMENT</span></div><h3>Kinara <em>RAG</em></h3><p class="project-lead">An answer is only useful when you can trace where it came from.</p><p class="project-body">A RAG chatbot for Kinaxis Maestro. Parent-document retrieval keeps generated responses tied to the larger source—not an orphaned fragment—so people can follow the context behind an answer.</p><div class="project-facts"><div><span class="mono">CURRENT QUESTION</span><b>How should retrieval preserve context?</b></div><div><span class="mono">IN PROGRESS</span><b>Retrieval + agentic lifecycle</b></div></div><div class="project-bottom mono"><span>BUILT FOR SOURCE-GROUNDED ANSWERS</span><span>02 / 04</span></div></div>
+            <div class="project-copy"><div class="project-topline mono"><span>CASE 02 / ENTERPRISE AI</span><span>IN DEVELOPMENT</span></div><h3>Kinara <em>RAG</em></h3><p class="project-lead">An answer is only useful when you can trace where it came from.</p><p class="project-body">A RAG chatbot for Kinaxis Maestro. Parent-document retrieval keeps generated responses tied to the larger source—not an orphaned fragment—so people can follow the context behind an answer.</p><div class="project-facts"><div><span class="mono">CURRENT QUESTION</span><b>How should retrieval preserve context?</b></div><div><span class="mono">IN PROGRESS</span><b>Retrieval + agentic lifecycle</b></div></div><div class="project-bottom mono"><span>BUILT FOR SOURCE-GROUNDED ANSWERS</span><button class="share-case mono" type="button" data-share-project="kinara">SHARE 02 / 04 ↗</button></div></div>
           </article>
 
           <article class="project-panel" id="panel-jiraxis" role="tabpanel" aria-labelledby="tab-jiraxis" tabindex="0" hidden>
             <div class="project-visual visual-jiraxis" role="img" aria-label="Specialist agents coordinating to act on a Jira issue">
               <div class="visual-note mono"><span>JIRAXIS / TASK COORDINATION</span><span class="visual-status"><i></i> BUILT</span></div>
-              <div class="jira-canvas"><svg class="jira-wires" viewBox="0 0 700 430" preserveAspectRatio="none"><path d="M350 214 126 112M350 214 574 112M350 214 126 322M350 214 574 322"/><path class="wire-dash" d="M126 112 574 112M126 322 574 322"/></svg><div class="jira-node jira-node--hub"><div class="hub-mark">J<span>✳</span></div><b>ORCHESTRATOR</b><small>Gemini 2.5 Pro</small></div><div class="jira-node jira-node--triage"><span class="agent-glyph">⌕</span><b>Triage</b><small>read the issue</small></div><div class="jira-node jira-node--plan"><span class="agent-glyph">↗</span><b>Planner</b><small>route the task</small></div><div class="jira-node jira-node--tool"><span class="agent-glyph">⌘</span><b>Tool agent</b><small>take action</small></div><div class="jira-node jira-node--state"><span class="agent-glyph">◷</span><b>State</b><small>keep the thread</small></div><div class="jira-packet"></div><div class="jira-footer mono"><span>AGENT-TO-AGENT HANDOFF</span><span>STATE PERSISTS</span></div></div>
-              <div class="visual-caption"><span>ONE REQUEST / SPECIALIST AGENTS</span><span>AGENT MAP / 03</span></div><span class="visual-stamp stamp-word">ASK<br><small>→ ROUTE → ACT</small></span>
+              <div class="jira-canvas">
+                <svg class="jira-wires" viewBox="0 0 700 430" preserveAspectRatio="none">
+                  <path d="M350 214 126 112M350 214 574 112M350 214 126 322M350 214 574 322"/>
+                  <path class="wire-dash" d="M126 112 574 112M126 322 574 322"/>
+                  <circle class="jira-svg-packet" r="5.5">
+                    <animateMotion dur="5.2s" repeatCount="indefinite" path="M126 112 L350 214 L574 112 L350 214 L126 322 L350 214 L574 322 L350 214 L126 112"/>
+                  </circle>
+                </svg>
+                <div class="jira-node jira-node--hub"><div class="hub-mark">J<span>✳</span></div><b>ORCHESTRATOR</b><small>Gemini 2.5 Pro</small></div>
+                <div class="jira-node jira-node--triage"><span class="agent-glyph">⌕</span><b>Triage</b><small>read the issue</small></div>
+                <div class="jira-node jira-node--plan"><span class="agent-glyph">↗</span><b>Planner</b><small>route the task</small></div>
+                <div class="jira-node jira-node--tool"><span class="agent-glyph">⌘</span><b>Tool agent</b><small>take action</small></div>
+                <div class="jira-node jira-node--state"><span class="agent-glyph">◷</span><b>State</b><small>keep the thread</small></div>
+                <div class="jira-footer mono"><span>AGENT-TO-AGENT HANDOFF</span><span>STATE PERSISTS</span></div>
+              </div>
+              <div class="visual-caption mono"><span>ONE REQUEST / SPECIALIST AGENTS</span><span>AGENT MAP / 03</span></div><span class="visual-stamp stamp-word">ASK<br><small>→ ROUTE → ACT</small></span>
             </div>
-            <div class="project-copy"><div class="project-topline mono"><span>CASE 03 / PERSONAL BUILD</span><span>GOOGLE CLOUD</span></div><h3>JIRAXIS <em>AI</em></h3><p class="project-lead">A Jira request can need more than one kind of thinking.</p><p class="project-body">A Gemini-powered assistant that hands work between specialist agents. Built with Google Cloud ADK, explicit workflow state, and tool calling so a request can move from issue to action.</p><div class="project-facts"><div><span class="mono">SYSTEM DESIGN</span><b>Specialists + orchestration</b></div><div><span class="mono">BUILT WITH</span><b>ADK · Gemini 2.5 Pro · A2A</b></div></div><div class="project-bottom mono"><span>STATEFUL, SPECIALIST COORDINATION</span><span>03 / 04</span></div></div>
+            <div class="project-copy"><div class="project-topline mono"><span>CASE 03 / PERSONAL BUILD</span><span>GOOGLE CLOUD</span></div><h3>JIRAXIS <em>AI</em></h3><p class="project-lead">A Jira request can need more than one kind of thinking.</p><p class="project-body">A Gemini-powered assistant that hands work between specialist agents. Built with Google Cloud ADK, explicit workflow state, and tool calling so a request can move from issue to action.</p><div class="project-facts"><div><span class="mono">SYSTEM DESIGN</span><b>Specialists + orchestration</b></div><div><span class="mono">BUILT WITH</span><b>ADK · Gemini 2.5 Pro · A2A</b></div></div><div class="project-bottom mono"><span>STATEFUL, SPECIALIST COORDINATION</span><button class="share-case mono" type="button" data-share-project="jiraxis">SHARE 03 / 04 ↗</button></div></div>
           </article>
 
           <article class="project-panel" id="panel-research" role="tabpanel" aria-labelledby="tab-research" tabindex="0" hidden>
             <div class="project-visual visual-research" role="img" aria-label="Road scene with gaze direction and vehicle motion feeding a sequence model">
               <div class="visual-note mono"><span>DRIVER MANEUVER / TEMPORAL VISION</span><span class="visual-status"><i></i> MSc RESEARCH</span></div>
-              <div class="road-study"><div class="road-sky"><span>OTTAWA / LONDON DATA</span><span>FRAME t−04 → t</span></div><div class="road-lines"><i class="lane lane-left"></i><i class="lane lane-right"></i><i class="horizon"></i><div class="research-car car-main"><i></i><span>SUBJECT</span></div><div class="research-car car-near"><i></i></div><div class="research-car car-far"><i></i></div><svg class="gaze-ray" viewBox="0 0 700 370"><path d="M330 289 486 171 575 154"/><circle cx="575" cy="154" r="8"/><circle cx="575" cy="154" r="20"/></svg><span class="gaze-label mono">GAZE / OBJECT</span></div><div class="sequence-readout"><div class="sequence-title mono">SLIDING WINDOW / PREDICTION</div><div class="sequence-models"><span>LSTM</span><span>GRU</span><span>TCN</span><b>→</b><strong>LANE CHANGE?</strong></div><div class="timebar"><i></i><i></i><i></i><i></i><i></i><i class="now"></i></div></div></div>
-              <div class="visual-caption"><span>GAZE + OBJECTS → NEXT MANEUVER</span><span>RESEARCH PLATE / 04</span></div><span class="visual-stamp stamp-word">LOOK<br><small>THEN PREDICT</small></span>
+              <div class="road-study"><div class="road-sky mono"><span>OTTAWA / LONDON DATA</span><span>FRAME t−04 → t</span></div><div class="road-lines"><i class="lane lane-left"></i><i class="lane lane-right"></i><i class="horizon"></i><div class="research-car car-main"><i></i><span>SUBJECT</span></div><div class="research-car car-near"><i></i></div><div class="research-car car-far"><i></i></div><svg class="gaze-ray" viewBox="0 0 700 370"><path d="M330 289 486 171 575 154"/><circle cx="575" cy="154" r="8"/><circle cx="575" cy="154" r="20"/></svg><span class="gaze-label mono">GAZE / OBJECT</span></div><div class="sequence-readout"><div class="sequence-title mono">SLIDING WINDOW / PREDICTION</div><div class="sequence-models"><span>LSTM</span><span>GRU</span><span>TCN</span><b>→</b><strong>LANE CHANGE?</strong></div><div class="timebar"><i></i><i></i><i></i><i></i><i></i><i class="now"></i></div></div></div>
+              <div class="visual-caption mono"><span>GAZE + OBJECTS → NEXT MANEUVER</span><span>RESEARCH PLATE / 04</span></div><span class="visual-stamp stamp-word">LOOK<br><small>THEN PREDICT</small></span>
             </div>
-            <div class="project-copy"><div class="project-topline mono"><span>CASE 04 / APPLIED RESEARCH</span><span>WESTERN UNIVERSITY</span></div><h3>Eyes on<br>the <em>road.</em></h3><p class="project-lead">Can attention and surrounding motion reveal what a driver will do next?</p><p class="project-body">My MSc thesis combined gaze signals and object detection with sliding-window sequence models to study driver maneuvers—connecting what a driver looks at with the motion developing around them.</p><div class="project-facts"><div><span class="mono">MODELS</span><b>LSTM · GRU · TCN</b></div><div><span class="mono">VISUAL SIGNAL</span><b>YOLO / signs, lights, objects</b></div></div><div class="project-bottom mono"><span>COMPUTER VISION / SEQUENCE MODELING</span><span>04 / 04</span></div></div>
+            <div class="project-copy"><div class="project-topline mono"><span>CASE 04 / APPLIED RESEARCH</span><span>WESTERN UNIVERSITY</span></div><h3>Eyes on<br>the <em>road.</em></h3><p class="project-lead">Can attention and surrounding motion reveal what a driver will do next?</p><p class="project-body">My MSc thesis combined gaze signals and object detection with sliding-window sequence models to study driver maneuvers—connecting what a driver looks at with the motion developing around them.</p><div class="project-facts"><div><span class="mono">MODELS</span><b>LSTM · GRU · TCN</b></div><div><span class="mono">VISUAL SIGNAL</span><b>YOLO / signs, lights, objects</b></div></div><div class="project-bottom mono"><span>COMPUTER VISION / SEQUENCE MODELING</span><button class="share-case mono" type="button" data-share-project="research">SHARE 04 / 04 ↗</button></div></div>
           </article>
         </div>
       </div>
+
+      <!-- Compact Open-Source & Research Field Notes Ledger -->
+      <div class="field-ledger" aria-label="Open-source repositories and research credentials">
+        <div class="ledger-column">
+          <div class="ledger-head mono"><span>02A // OPEN-SOURCE REPOSITORIES</span><span>@RAVINDRANATH-SAWANE</span></div>
+          <div class="ledger-list">
+            <a class="ledger-item" href="https://github.com/ravindranath-sawane/ChainSight-AI" target="_blank" rel="noopener noreferrer">
+              <span class="ledger-no mono">01</span>
+              <div class="ledger-main">
+                <div class="ledger-title-row"><strong>ChainSight AI</strong><span class="ledger-tag mono">PUB/SUB · BIGQUERY · GEMINI</span></div>
+                <p>Real-time supply-chain disruption monitor extracting entity, sentiment, and financial/labor risk signals.</p>
+              </div>
+              <span class="ledger-arrow">↗</span>
+            </a>
+            <a class="ledger-item" href="https://github.com/ravindranath-sawane/CreditCairn" target="_blank" rel="noopener noreferrer">
+              <span class="ledger-no mono">02</span>
+              <div class="ledger-main">
+                <div class="ledger-title-row"><strong>CreditCairn</strong><span class="ledger-tag mono">GEMINI · CHROMADB · RAG</span></div>
+                <p>Semantic RAG assistant for Canadian credit rewards optimization with custom agent recommendation tools.</p>
+              </div>
+              <span class="ledger-arrow">↗</span>
+            </a>
+            <a class="ledger-item" href="https://github.com/ravindranath-sawane/Zero-To-GenAI" target="_blank" rel="noopener noreferrer">
+              <span class="ledger-no mono">03</span>
+              <div class="ledger-main">
+                <div class="ledger-title-row"><strong>Zero-To-GenAI</strong><span class="ledger-tag mono">LANGCHAIN · LCEL · JUPYTER</span></div>
+                <p>Hands-on Generative AI engineering curriculum from tokenization and prompting to stateful RAG pipelines.</p>
+              </div>
+              <span class="ledger-arrow">↗</span>
+            </a>
+          </div>
+          <div class="ledger-foot mono">
+            <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer">ALL PUBLIC REPOSITORIES <b>↗</b></a>
+            <a href="https://github.com/rsawane-kxs" target="_blank" rel="noopener noreferrer">WORK PROFILE (@RSAWANE-KXS) <b>↗</b></a>
+          </div>
+        </div>
+
+        <div class="ledger-column">
+          <div class="ledger-head mono"><span>02B // RESEARCH &amp; HONORS</span><span>SCHOLARSHIP &amp; PUBLICATIONS</span></div>
+          <div class="ledger-list">
+            <a class="ledger-item" href="https://scholar.google.ca/citations?user=m-A0ZYgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">
+              <span class="ledger-no mono">MSc</span>
+              <div class="ledger-main">
+                <div class="ledger-title-row"><strong>Western University — M.Sc. Computer Science (AI)</strong><span class="ledger-tag mono">3.9 / 4.0 GPA</span></div>
+                <p>Thesis: <em>Gaze-Aware Driver Maneuver Prediction Using Object Detection &amp; Sequential Deep Learning for ADAS</em> (2025).</p>
+              </div>
+              <span class="ledger-arrow">↗</span>
+            </a>
+            <a class="ledger-item" href="https://scholar.google.ca/citations?user=m-A0ZYgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">
+              <span class="ledger-no mono">PUB</span>
+              <div class="ledger-main">
+                <div class="ledger-title-row"><strong>5 Peer-Reviewed Papers &amp; Preprints</strong><span class="ledger-tag mono">2022 — 2025</span></div>
+                <p>Published work across ADAS temporal vision, Deep Q-Networks (<em>arXiv</em>), MobileNet detection, and imbalanced ML.</p>
+              </div>
+              <span class="ledger-arrow">↗</span>
+            </a>
+            <div class="ledger-item ledger-item--static">
+              <span class="ledger-no mono">HON</span>
+              <div class="ledger-main">
+                <div class="ledger-title-row"><strong>CAD $88K Competitive Funding &amp; IEEE Merwin Scholar</strong><span class="ledger-tag mono">B.Tech. AI · 8.9/10</span></div>
+                <p>Western University graduate research funding, MITACS Globalink award, and IEEE Computer Society leadership scholarship.</p>
+              </div>
+              <span class="ledger-arrow ledger-arrow--muted">✦</span>
+            </div>
+          </div>
+          <div class="ledger-foot mono">
+            <a href="https://scholar.google.ca/citations?user=m-A0ZYgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">GOOGLE SCHOLAR CITATIONS <b>↗</b></a>
+            <span>LONDON · CALGARY · TORONTO</span>
+          </div>
+        </div>
+      </div>
+
       <div class="work-note mono"><span>THESE ARE STARTING POINTS.</span><a href="https://www.linkedin.com/in/ravindranath-sawane/" target="_blank" rel="noopener noreferrer">LET’S TALK ABOUT THE DETAILS <b>↗</b></a></div>
     </section>
 
@@ -162,16 +370,53 @@
 
     <section class="about-section" id="about" aria-labelledby="aboutTitle">
       <div class="about-label"><p class="eyebrow"><span class="section-index">04</span> BEYOND THE SYSTEMS</p><span class="about-coord mono">43° 39′ N<br>TORONTO, ON</span></div>
-      <div class="about-copy"><h2 id="aboutTitle">Engineer by work.<br><em>Curious by nature.</em></h2><p>I’m Ravindranath—a software developer in AI at Kinaxis. I studied computer science at Western University, where my MSc research focused on gaze-aware driver-maneuver prediction.</p><p>I like the space between a promising idea and the moment it becomes genuinely useful. That’s where I spend most of my time.</p><div class="about-links"><a href="https://www.linkedin.com/in/ravindranath-sawane/" target="_blank" rel="noopener noreferrer">LinkedIn <span>↗</span></a><a href="mailto:ravisawane9@gmail.com">Email me <span>↗</span></a></div></div>
+      <div class="about-copy">
+        <h2 id="aboutTitle">Engineer by work.<br><em>Curious by nature.</em></h2>
+        <p>I’m Ravindranath—a software developer in AI Innovation at Kinaxis. I studied computer science at Western University, where my MSc research focused on gaze-aware driver-maneuver prediction.</p>
+        <p>I like the space between a promising idea and the moment it becomes genuinely useful. That’s where I spend most of my time.</p>
+        <div class="about-links">
+          <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
+          <a href="https://github.com/rsawane-kxs" target="_blank" rel="noopener noreferrer">Work GitHub (@rsawane-kxs) <span>↗</span></a>
+          <a href="https://www.linkedin.com/in/ravindranath-sawane/" target="_blank" rel="noopener noreferrer">LinkedIn <span>↗</span></a>
+          <a href="https://scholar.google.ca/citations?user=m-A0ZYgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google Scholar <span>↗</span></a>
+          <a href="mailto:ravisawane9@gmail.com">Email me <span>↗</span></a>
+        </div>
+      </div>
       <div class="about-scribble" aria-hidden="true"><span>R</span><svg viewBox="0 0 260 85"><path d="M4 50 C38 8 55 80 92 37 S140 65 166 34 214 68 255 15"/></svg><span class="mono">STAY CURIOUS / KEEP BUILDING</span></div>
     </section>
 
-    <section class="contact-section" id="contact" aria-labelledby="contactTitle"><div class="contact-top mono"><span>05 / THE NEXT QUESTION</span><span>INBOX OPEN</span></div><div class="contact-body"><h2 id="contactTitle">Got a good<br><em>problem?</em></h2><div class="contact-invite"><p>I’m always interested in thoughtful conversations about AI, useful software, and research that goes somewhere.</p><a class="contact-button" href="mailto:ravisawane9@gmail.com">ravisawane9@gmail.com <span>↗</span></a></div></div><div class="contact-bottom mono"><span>RAVINDRANATH SAWANE</span><span>TORONTO, CANADA</span><a href="#top">BACK TO THE TOP ↑</a></div><div class="contact-doodle" aria-hidden="true"><svg viewBox="0 0 400 400"><path d="M197 9c104 0 188 84 188 188s-84 188-188 188S9 301 9 197 93 9 197 9Z"/><path d="M197 57c78 0 140 62 140 140s-62 140-140 140S57 275 57 197 119 57 197 57Z"/><path d="M197 105c51 0 92 41 92 92s-41 92-92 92-92-41-92-92 41-92 92-92Z"/><path d="M197 9v376M9 197h376"/><circle cx="197" cy="197" r="9"/></svg></div></section>
+    <section class="contact-section" id="contact" aria-labelledby="contactTitle">
+      <div class="contact-top mono"><span>05 / THE NEXT QUESTION</span><span>INBOX OPEN</span></div>
+      <div class="contact-body">
+        <h2 id="contactTitle">Got a good<br><em>problem?</em></h2>
+        <div class="contact-invite">
+          <p>I’m always interested in thoughtful conversations about AI, useful software, and research that goes somewhere.</p>
+          <div class="contact-actions">
+            <a class="contact-button" href="mailto:ravisawane9@gmail.com">ravisawane9@gmail.com <span>↗</span></a>
+            <button class="contact-copy mono" id="copyEmailBtn" type="button" data-email="ravisawane9@gmail.com" aria-live="polite">COPY ADDRESS</button>
+          </div>
+        </div>
+      </div>
+      <div class="contact-bottom mono">
+        <span>RAVINDRANATH SAWANE · TORONTO</span>
+        <div class="contact-socials">
+          <a href="https://github.com/ravindranath-sawane" target="_blank" rel="noopener noreferrer">GITHUB ↗</a>
+          <a href="https://www.linkedin.com/in/ravindranath-sawane/" target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a>
+          <a href="https://scholar.google.ca/citations?user=m-A0ZYgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">SCHOLAR ↗</a>
+        </div>
+        <a href="#top">BACK TO THE TOP ↑</a>
+      </div>
+      <div class="contact-doodle" aria-hidden="true"><svg viewBox="0 0 400 400"><path d="M197 9c104 0 188 84 188 188s-84 188-188 188S9 301 9 197 93 9 197 9Z"/><path d="M197 57c78 0 140 62 140 140s-62 140-140 140S57 275 57 197 119 57 197 57Z"/><path d="M197 105c51 0 92 41 92 92s-41 92-92 92-92-41-92-92 41-92 92-92Z"/><path d="M197 9v376M9 197h376"/><circle cx="197" cy="197" r="9"/></svg></div>
+    </section>
   </main>
 
-  <footer class="site-footer mono"><span>© <span id="year"></span> RAVINDRANATH SAWANE</span><span>THOUGHTFULLY BUILT IN TORONTO</span><a href="#top">RS ↑</a></footer>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+  <footer class="site-footer mono">
+    <span>© <span id="year"></span> RAVINDRANATH SAWANE</span>
+    <span>THOUGHTFULLY BUILT IN TORONTO</span>
+    <a href="#top">RS ↑</a>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" defer></script>
   <script src="script.js" defer></script>
 </body>
 </html>
